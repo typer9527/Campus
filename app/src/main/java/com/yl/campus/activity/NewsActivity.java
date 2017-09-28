@@ -1,11 +1,12 @@
 package com.yl.campus.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.yl.campus.NewsListAdapter;
+import com.yl.campus.adapter.NewsListAdapter;
 import com.yl.campus.R;
 import com.yl.campus.model.News;
 import com.yl.campus.model.TopNews;
@@ -66,11 +67,18 @@ public class NewsActivity extends AppCompatActivity implements NewsView {
     public void showNewsList(List<News> newsList) {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(new NewsListAdapter(newsList));
+        recyclerView.setAdapter(new NewsListAdapter(newsList, this));
     }
 
     @Override
     public void onLoadFailed() {
         ToastUtil.showToast(this, "加载失败", 0);
+    }
+
+    @Override
+    public void jumpToNewsContent(String url) {
+        Intent intent = new Intent(this, NewsContentActivity_.class);
+        intent.putExtra("news_url", url);
+        startActivity(intent);
     }
 }

@@ -20,4 +20,6 @@ public interface NewsView {
     void showNewsList(List<News> newsList);
 
     void onLoadFailed();
+
+    void jumpToNewsContent(String url);
 }

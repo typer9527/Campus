@@ -1,4 +1,4 @@
-package com.yl.campus;
+package com.yl.campus.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -6,7 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.yl.campus.R;
 import com.yl.campus.model.News;
+import com.yl.campus.view.NewsView;
 
 import java.util.List;
 
@@ -17,20 +19,23 @@ import java.util.List;
 
 public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.ViewHolder> {
     private List<News> newsList;
+    private NewsView newsView;
 
-    public NewsListAdapter(List<News> newsList) {
+    public NewsListAdapter(List<News> newsList, NewsView view) {
         this.newsList = newsList;
+        this.newsView = view;
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
+    public ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
+        final View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_news, parent, false);
-        ViewHolder holder = new ViewHolder(view);
+        final ViewHolder holder = new ViewHolder(view);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 每条新闻的点击事件
+                int position = holder.getAdapterPosition();
+                newsView.jumpToNewsContent(newsList.get(position).url);
             }
         });
         return holder;
