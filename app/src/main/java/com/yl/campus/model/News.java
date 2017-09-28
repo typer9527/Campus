@@ -9,13 +9,4 @@ public class News {
     public String title;
     public String date;
     public String url;
-
-    @Override
-    public String toString() {
-        return "News{" +
-                "title='" + title + '\'' +
-                ", date='" + date + '\'' +
-                ", url='" + url + '\'' +
-                '}';
-    }
 }

@@ -2,42 +2,75 @@ package com.yl.campus.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
+import com.yl.campus.NewsListAdapter;
 import com.yl.campus.R;
-import com.yl.campus.model.NewsModel;
-import com.yl.campus.model.OnGetImageListener;
+import com.yl.campus.model.News;
+import com.yl.campus.model.TopNews;
+import com.yl.campus.presenter.NewsPresenter;
+import com.yl.campus.util.LoadingUtil;
+import com.yl.campus.util.ToastUtil;
+import com.yl.campus.view.NewsView;
 import com.youth.banner.Banner;
+import com.youth.banner.BannerConfig;
 
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
+
+import java.util.ArrayList;
 import java.util.List;
 
-public class NewsActivity extends AppCompatActivity {
+@EActivity(R.layout.activity_news)
+public class NewsActivity extends AppCompatActivity implements NewsView {
+    @ViewById
+    public Banner banner;
+    @ViewById
+    public RecyclerView recyclerView;
 
-    private Banner banner;
+    private NewsPresenter presenter = new NewsPresenter(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_news);
-        banner = (Banner) findViewById(R.id.banner);
+        presenter.show();
+    }
+
+    @Override
+    public void showProgressDialog() {
+        LoadingUtil.startLoad(this);
+    }
+
+    @Override
+    public void hideProgressDialog() {
+        LoadingUtil.endLoad();
+    }
+
+    @Override
+    public void showTopNewses(List<TopNews> topNewses) {
+        List<String> images = new ArrayList<>();
+        List<String> titles = new ArrayList<>();
+        for (TopNews topNews : topNewses) {
+            images.add(topNews.imageUrl);
+            titles.add(topNews.title);
+        }
+        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
         banner.setImageLoader(new GlideImageLoader());
-        NewsModel model = new NewsModel();
-        model.getTopImage(new OnGetImageListener() {
-            @Override
-            public void onSucceed(final List<String> images) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        banner.setImages(images);
-                        banner.start();
-                    }
-                });
-            }
+        banner.setImages(images);
+        banner.setBannerTitles(titles);
+        banner.start();
+    }
 
-            @Override
-            public void onFailed() {
+    @Override
+    public void showNewsList(List<News> newsList) {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(new NewsListAdapter(newsList));
+    }
 
-            }
-        });
-
+    @Override
+    public void onLoadFailed() {
+        ToastUtil.showToast(this, "加载失败", 0);
     }
 }
