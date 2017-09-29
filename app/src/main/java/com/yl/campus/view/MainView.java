@@ -6,5 +6,21 @@ package com.yl.campus.view;
  */
 
 public interface MainView {
+    String readNameFromPrefs();
 
+    String readIdFromPrefs();
+
+    void setNameText(String nameText);
+
+    void setIdText(String idText);
+
+    void setNotLoginText();
+
+    void jumpToLogin();
+
+    void clearLoginPrefs();
+
+    void toastNotLogin();
+
+    void toastExitSucceed();
 }

@@ -1,30 +1,50 @@
 package com.yl.campus.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import com.yl.campus.R;
 import com.yl.campus.adapter.GridViewAdapter;
+import com.yl.campus.presenter.MainPresenter;
+import com.yl.campus.util.ToastUtil;
 import com.yl.campus.view.MainView;
 
 import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
 @EActivity(R.layout.activity_main)
-public class MainActivity extends AppCompatActivity implements MainView {
+public class MainActivity extends AppCompatActivity implements
+        MainView, AdapterView.OnItemClickListener,
+        NavigationView.OnNavigationItemSelectedListener {
 
     @ViewById
     public DrawerLayout drawerLayout;
     @ViewById
+    public Toolbar toolbar;
+    @ViewById
+    public NavigationView navView;
+    @ViewById
     public GridView gridView;
+
+    private final int LOGIN = 1;
+    private TextView nameText;
+    private TextView idText;
+    private MainPresenter presenter = new MainPresenter(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,25 +53,133 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
     @AfterViews
     public void init() {
-        final GridViewAdapter adapter = new GridViewAdapter();
-        gridView.setAdapter(adapter);
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                switch (position) {
-                    case 0:
-                        startActivity(new Intent(MainActivity.this, NewsActivity_.class));
-                        break;
-                    default:
-                        break;
-                }
-            }
-        });
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle("安科小助手");
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
+        }
+        initNavigationView();
+        initGridView();
+        presenter.setNameAndId();
     }
 
-    @Click
-    public void homeButton(View view) {
-        drawerLayout.openDrawer(GravityCompat.START);
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            navView.setCheckedItem(R.id.item_home);
+            drawerLayout.openDrawer(GravityCompat.START);
+        }
+        return true;
+    }
+
+    private void initGridView() {
+        final GridViewAdapter adapter = new GridViewAdapter();
+        gridView.setAdapter(adapter);
+        gridView.setOnItemClickListener(this);
+    }
+
+    private void initNavigationView() {
+        View navHeader = navView.getHeaderView(0);
+        nameText = (TextView) navHeader.findViewById(R.id.nameText);
+        idText = (TextView) navHeader.findViewById(R.id.idText);
+        nameText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onLoginClicked();
+            }
+        });
+        navView.setCheckedItem(R.id.item_home);
+        navView.setNavigationItemSelectedListener(this);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        switch (position) {
+            case 0:
+                startActivity(new Intent(MainActivity.this, NewsActivity_.class));
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.item_home:
+                drawerLayout.closeDrawers();
+                break;
+            case R.id.item_exit:
+                presenter.exitLogin();
+                break;
+        }
+        return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case LOGIN:
+                if (resultCode == RESULT_OK) {
+                    presenter.setNameAndId();
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public String readNameFromPrefs() {
+        return PreferenceManager
+                .getDefaultSharedPreferences(this).getString("name", null);
+    }
+
+    @Override
+    public String readIdFromPrefs() {
+        return PreferenceManager
+                .getDefaultSharedPreferences(this).getString("id", null);
+    }
+
+    @Override
+    public void setNameText(String nameText) {
+        this.nameText.setText(nameText);
+    }
+
+    @Override
+    public void setIdText(String idText) {
+        this.idText.setText(idText);
+    }
+
+    @Override
+    public void setNotLoginText() {
+        nameText.setText("未登录");
+        idText.setText("");
+    }
+
+    @Override
+    public void jumpToLogin() {
+        Intent intent = new Intent(MainActivity.this, LoginActivity_.class);
+        startActivityForResult(intent, LOGIN);
+    }
+
+    @Override
+    public void clearLoginPrefs() {
+        SharedPreferences.Editor editor = PreferenceManager
+                .getDefaultSharedPreferences(this).edit();
+        editor.clear();
+        editor.apply();
+    }
+
+    @Override
+    public void toastNotLogin() {
+        ToastUtil.showToast(this, "您还未登录", 0);
+    }
+
+    @Override
+    public void toastExitSucceed() {
+        ToastUtil.showToast(this, "退出成功", 0);
     }
 }

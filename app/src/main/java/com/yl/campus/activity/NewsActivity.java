@@ -1,13 +1,16 @@
 package com.yl.campus.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.ImageView;
 
-import com.yl.campus.adapter.NewsListAdapter;
+import com.bumptech.glide.Glide;
 import com.yl.campus.R;
+import com.yl.campus.adapter.NewsListAdapter;
 import com.yl.campus.model.News;
 import com.yl.campus.model.TopNews;
 import com.yl.campus.presenter.NewsPresenter;
@@ -16,6 +19,7 @@ import com.yl.campus.util.ToastUtil;
 import com.yl.campus.view.NewsView;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
+import com.youth.banner.loader.ImageLoader;
 
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
@@ -40,7 +44,7 @@ public class NewsActivity extends AppCompatActivity implements NewsView {
 
     @Override
     public void showProgressDialog() {
-        LoadingUtil.startLoad(this);
+        LoadingUtil.startLoad(this, "正在加载...");
     }
 
     @Override
@@ -80,5 +84,13 @@ public class NewsActivity extends AppCompatActivity implements NewsView {
         Intent intent = new Intent(this, NewsContentActivity_.class);
         intent.putExtra("news_url", url);
         startActivity(intent);
+    }
+
+    private class GlideImageLoader extends ImageLoader {
+        @Override
+        public void displayImage(Context context, Object path, ImageView imageView) {
+            Glide.with(context).load(path).placeholder(R.mipmap.ic_launcher)
+                    .centerCrop().into(imageView);
+        }
     }
 }

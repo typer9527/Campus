@@ -11,9 +11,9 @@ import android.content.Context;
 public class LoadingUtil {
     private static ProgressDialog progressDialog;
 
-    public static void startLoad(Context context) {
+    public static void startLoad(Context context, String msg) {
         progressDialog = new ProgressDialog(context);
-        progressDialog.setMessage("正在加载...");
+        progressDialog.setMessage(msg);
         progressDialog.setCancelable(false);
         progressDialog.show();
     }
