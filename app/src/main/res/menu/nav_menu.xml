@@ -6,9 +6,12 @@
             android:icon="@drawable/ic_home"
             android:title="@string/home" />
         <item
+            android:id="@+id/item_info"
+            android:icon="@drawable/ic_info"
+            android:title="@string/info" />
+        <item
             android:id="@+id/item_exit"
             android:icon="@drawable/ic_exit"
             android:title="@string/exit" />
-        <item android:title="" />
     </group>
 </menu>

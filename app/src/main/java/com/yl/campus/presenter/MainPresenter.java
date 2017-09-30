@@ -44,4 +44,12 @@ public class MainPresenter {
         view.setNotLoginText();
         view.toastExitSucceed();
     }
+
+    public void showPersonalInfo() {
+        if (model.isModelNull()) {
+            view.toastNotLogin();
+            return;
+        }
+        view.jumpToPersonalInfo();
+    }
 }

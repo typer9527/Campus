@@ -1,9 +1,7 @@
 package com.yl.campus.activity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -20,6 +18,7 @@ import android.widget.TextView;
 import com.yl.campus.R;
 import com.yl.campus.adapter.GridViewAdapter;
 import com.yl.campus.presenter.MainPresenter;
+import com.yl.campus.util.PrefsUtil;
 import com.yl.campus.util.ToastUtil;
 import com.yl.campus.view.MainView;
 
@@ -111,6 +110,9 @@ public class MainActivity extends AppCompatActivity implements
             case R.id.item_home:
                 drawerLayout.closeDrawers();
                 break;
+            case R.id.item_info:
+                presenter.showPersonalInfo();
+                break;
             case R.id.item_exit:
                 presenter.exitLogin();
                 break;
@@ -133,14 +135,12 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public String readNameFromPrefs() {
-        return PreferenceManager
-                .getDefaultSharedPreferences(this).getString("name", null);
+        return PrefsUtil.getStringByKey(this, "name");
     }
 
     @Override
     public String readIdFromPrefs() {
-        return PreferenceManager
-                .getDefaultSharedPreferences(this).getString("id", null);
+        return PrefsUtil.getStringByKey(this, "id");
     }
 
     @Override
@@ -166,11 +166,14 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
+    public void jumpToPersonalInfo() {
+        Intent intent = new Intent(MainActivity.this, PersonalInfoActivity_.class);
+        startActivity(intent);
+    }
+
+    @Override
     public void clearLoginPrefs() {
-        SharedPreferences.Editor editor = PreferenceManager
-                .getDefaultSharedPreferences(this).edit();
-        editor.clear();
-        editor.apply();
+        PrefsUtil.clearPrefs(this);
     }
 
     @Override

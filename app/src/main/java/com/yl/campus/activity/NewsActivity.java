@@ -44,7 +44,7 @@ public class NewsActivity extends AppCompatActivity implements NewsView {
 
     @Override
     public void showProgressDialog() {
-        LoadingUtil.startLoad(this, "正在加载...");
+        LoadingUtil.onLoad(this, "正在加载...");
     }
 
     @Override

@@ -18,6 +18,8 @@ public interface MainView {
 
     void jumpToLogin();
 
+    void jumpToPersonalInfo();
+
     void clearLoginPrefs();
 
     void toastNotLogin();

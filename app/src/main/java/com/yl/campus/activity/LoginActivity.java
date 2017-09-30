@@ -92,7 +92,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
     @Override
     public void showProgressDialog() {
-        LoadingUtil.startLoad(this, "正在登陆...");
+        LoadingUtil.onLoad(this, "正在登陆...");
     }
 
     @Override
