@@ -99,6 +99,9 @@ public class MainActivity extends AppCompatActivity implements
             case 0:
                 startActivity(new Intent(MainActivity.this, NewsActivity_.class));
                 break;
+            case 1:
+                startActivity(new Intent(MainActivity.this, CurriculumActivity_.class));
+                break;
             default:
                 break;
         }

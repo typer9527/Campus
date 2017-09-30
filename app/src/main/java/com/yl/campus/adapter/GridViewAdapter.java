@@ -15,8 +15,8 @@ import com.yl.campus.R;
 
 public class GridViewAdapter extends BaseAdapter {
 
-    private final String[] functionNames = {"新闻展示"};
-    private final int[] functionImages = {R.drawable.ic_home};
+    private final String[] functionNames = {"新闻展示", "我的课表"};
+    private final int[] functionImages = {R.drawable.ic_home, R.drawable.ic_home};
 
     @Override
     public int getCount() {
