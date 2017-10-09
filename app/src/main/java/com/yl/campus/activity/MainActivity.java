@@ -100,7 +100,12 @@ public class MainActivity extends AppCompatActivity implements
                 startActivity(new Intent(MainActivity.this, NewsActivity_.class));
                 break;
             case 1:
-                startActivity(new Intent(MainActivity.this, CurriculumActivity_.class));
+                if (presenter.isLogon()) {
+                    startActivity(new Intent(MainActivity.this,
+                            CurriculumActivity_.class));
+                } else {
+                    toastNotLogin();
+                }
                 break;
             default:
                 break;

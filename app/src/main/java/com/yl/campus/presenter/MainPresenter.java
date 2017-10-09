@@ -52,4 +52,8 @@ public class MainPresenter {
         }
         view.jumpToPersonalInfo();
     }
+
+    public boolean isLogon() {
+        return !model.isModelNull();
+    }
 }

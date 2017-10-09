@@ -23,7 +23,6 @@
         android:id="@+id/dateAndWeekGrid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="15dp"
         android:layout_marginTop="15dp"
         android:gravity="center_horizontal"
         android:horizontalSpacing="5dp"
@@ -34,5 +33,17 @@
         android:layout_height="1dp"
         android:layout_marginTop="10dp"
         android:background="#000" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="none">
+
+        <FrameLayout
+            android:id="@+id/courseLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </ScrollView>
 
 </LinearLayout>

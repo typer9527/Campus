@@ -1,7 +1,6 @@
 package com.yl.campus.adapter;
 
 import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +13,6 @@ import com.yl.campus.model.DateAndWeek;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
-import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
 
 /**
  * 课表的日期星期适配器
@@ -38,7 +35,6 @@ public class DateAndWeekAdapter extends BaseAdapter {
         int month = calendar.get(Calendar.MONTH);
         int week = calendar.get(Calendar.DAY_OF_WEEK);
         int date = calendar.get(Calendar.DAY_OF_MONTH);
-        Log.e(TAG, "getDateAndWeek: " + month + "," + week + "," + date);
         for (int i = 0; i < 8; i++) {
             DateAndWeek dateAndWeek = new DateAndWeek();
             if (i == 0) {
@@ -76,7 +72,6 @@ public class DateAndWeekAdapter extends BaseAdapter {
         dateText.setText(dateAndWeekList.get(position).date);
         weekText.setText(dateAndWeekList.get(position).week);
         if (Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == position) {
-            Log.e(TAG, "getView: " + position);
             view.setBackgroundColor(Color.LTGRAY);
         }
         return view;
