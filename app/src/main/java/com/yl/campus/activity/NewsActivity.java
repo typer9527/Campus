@@ -3,7 +3,6 @@ package com.yl.campus.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
@@ -27,8 +26,8 @@ import org.androidannotations.annotations.ViewById;
 import java.util.ArrayList;
 import java.util.List;
 
-@EActivity(R.layout.activity_news)
-public class NewsActivity extends AppCompatActivity implements NewsView {
+@EActivity
+public class NewsActivity extends BaseActivity implements NewsView {
     @ViewById
     public Banner banner;
     @ViewById
@@ -40,6 +39,16 @@ public class NewsActivity extends AppCompatActivity implements NewsView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter.show();
+    }
+
+    @Override
+    protected String getToolbarTitle() {
+        return getString(R.string.news_page);
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_news;
     }
 
     @Override

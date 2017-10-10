@@ -5,19 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.v7.widget.Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimary">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/info"
-            android:textColor="#fff"
-            android:textSize="25sp" />
-    </android.support.v7.widget.Toolbar>
+    <include layout="@layout/toolbar_layout" />
 
     <View
         android:layout_width="match_parent"

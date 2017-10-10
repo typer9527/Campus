@@ -3,7 +3,6 @@ package com.yl.campus.activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -24,15 +23,13 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
-@EActivity(R.layout.activity_curriculum)
-public class CurriculumActivity extends AppCompatActivity implements CurriculumView {
+@EActivity
+public class CurriculumActivity extends BaseActivity implements CurriculumView {
 
     @ViewById
     GridView dateAndWeekGrid;
     @ViewById
     FrameLayout courseLayout;
-    @ViewById
-    TextView weekNum;
     private int courseWidth;
     private int courseHeight;
     private CurriculumPresenter presenter = new CurriculumPresenter(this);
@@ -40,6 +37,16 @@ public class CurriculumActivity extends AppCompatActivity implements CurriculumV
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_curriculum;
+    }
+
+    @Override
+    protected String getToolbarTitle() {
+        return getString(R.string.week_num_text);
     }
 
     @Override
@@ -84,7 +91,7 @@ public class CurriculumActivity extends AppCompatActivity implements CurriculumV
 
     @Override
     public void showCourseContent(Curriculum curriculum) {
-        weekNum.setText(getString(R.string.week_num_text, curriculum.weekNum));
+        titleText.setText(getString(R.string.week_num_text, curriculum.weekNum));
         for (Curriculum.Course course : curriculum.courses) {
             ViewHolder holder = new ViewHolder(this);
             holder.courseNameText.setText(course.courseName);

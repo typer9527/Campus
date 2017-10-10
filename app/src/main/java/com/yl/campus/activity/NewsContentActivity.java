@@ -2,7 +2,6 @@ package com.yl.campus.activity;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -15,8 +14,8 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
-@EActivity(R.layout.activity_news_content)
-public class NewsContentActivity extends AppCompatActivity implements NewContentView {
+@EActivity
+public class NewsContentActivity extends BaseActivity implements NewContentView {
 
     @ViewById
     public WebView webView;
@@ -26,6 +25,16 @@ public class NewsContentActivity extends AppCompatActivity implements NewContent
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_news_content;
+    }
+
+    @Override
+    protected String getToolbarTitle() {
+        return getString(R.string.news_content);
     }
 
     @Override

@@ -6,9 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -26,20 +23,17 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
-@EActivity(R.layout.activity_main)
-public class MainActivity extends AppCompatActivity implements
+@EActivity
+public class MainActivity extends BaseActivity implements
         MainView, AdapterView.OnItemClickListener,
         NavigationView.OnNavigationItemSelectedListener {
 
     @ViewById
     public DrawerLayout drawerLayout;
     @ViewById
-    public Toolbar toolbar;
-    @ViewById
     public NavigationView navView;
     @ViewById
     public GridView gridView;
-
     private final int LOGIN = 1;
     private TextView nameText;
     private TextView idText;
@@ -52,13 +46,6 @@ public class MainActivity extends AppCompatActivity implements
 
     @AfterViews
     public void init() {
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setTitle("安科小助手");
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
-        }
         initNavigationView();
         initGridView();
         presenter.setNameAndId();
@@ -71,6 +58,26 @@ public class MainActivity extends AppCompatActivity implements
             drawerLayout.openDrawer(GravityCompat.START);
         }
         return true;
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    protected String getDefaultTitle() {
+        return "安科小助手";
+    }
+
+    @Override
+    protected String getToolbarTitle() {
+        return super.getToolbarTitle();
+    }
+
+    @Override
+    protected int getHomeAsUpIndicator() {
+        return R.drawable.ic_menu;
     }
 
     private void initGridView() {

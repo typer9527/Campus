@@ -1,7 +1,6 @@
 package com.yl.campus.activity;
 
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -19,12 +18,12 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
-@EActivity(R.layout.activity_personal_info)
-public class PersonalInfoActivity extends AppCompatActivity
+@EActivity
+public class PersonalInfoActivity extends BaseActivity
         implements PersonalInfoView {
 
     @ViewById
-    public LinearLayout linearLayout;
+    LinearLayout linearLayout;
     @ViewById
     TextView nameText;
     @ViewById
@@ -42,6 +41,16 @@ public class PersonalInfoActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_personal_info;
+    }
+
+    @Override
+    protected String getToolbarTitle() {
+        return getString(R.string.info);
     }
 
     @AfterViews
