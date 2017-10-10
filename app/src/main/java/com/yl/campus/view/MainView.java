@@ -24,5 +24,7 @@ public interface MainView {
 
     void toastNotLogin();
 
+    void showExitDialog();
+
     void toastExitSucceed();
 }

@@ -1,11 +1,13 @@
 package com.yl.campus.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AlertDialog;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -129,7 +131,7 @@ public class MainActivity extends BaseActivity implements
                 presenter.showPersonalInfo();
                 break;
             case R.id.item_exit:
-                presenter.exitLogin();
+                showExitDialog();
                 break;
         }
         return true;
@@ -194,6 +196,20 @@ public class MainActivity extends BaseActivity implements
     @Override
     public void toastNotLogin() {
         ToastUtil.showToast(this, "您还未登录", 0);
+    }
+
+    @Override
+    public void showExitDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("退出")
+                .setMessage("确认退出当前用户?")
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        presenter.exitLogin();
+                    }
+                }).setNegativeButton("取消", null);
+        builder.show();
     }
 
     @Override
