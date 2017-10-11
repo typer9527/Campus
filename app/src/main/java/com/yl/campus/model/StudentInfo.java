@@ -2,7 +2,7 @@ package com.yl.campus.model;
 
 public class StudentInfo {
 	public String studentId;
-	public String password;
+	private String password;
 	public String name;
 	public String sex;
 	public String birthday;

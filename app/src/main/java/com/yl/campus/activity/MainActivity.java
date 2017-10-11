@@ -116,6 +116,9 @@ public class MainActivity extends BaseActivity implements
                     toastNotLogin();
                 }
                 break;
+            case 2:
+                startActivity(new Intent(MainActivity.this, BookSearchActivity_.class));
+                break;
             default:
                 break;
         }

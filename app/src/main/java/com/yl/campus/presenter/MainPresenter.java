@@ -9,8 +9,8 @@ import com.yl.campus.view.MainView;
  */
 
 public class MainPresenter {
-    MainView view;
-    MainModel model;
+    private MainView view;
+    private MainModel model;
 
     public MainPresenter(MainView view) {
         this.view = view;

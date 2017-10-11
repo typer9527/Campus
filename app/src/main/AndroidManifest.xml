@@ -22,7 +22,8 @@
         <activity android:name=".activity.NewsContentActivity_" />
         <activity android:name=".activity.LoginActivity_" />
         <activity android:name=".activity.PersonalInfoActivity_" />
-        <activity android:name=".activity.CurriculumActivity_"></activity>
+        <activity android:name=".activity.CurriculumActivity_" />
+        <activity android:name=".activity.BookSearchActivity_" />
     </application>
 
 </manifest>

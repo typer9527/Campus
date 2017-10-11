@@ -28,10 +28,6 @@ public class NewsModel {
     }
 
     public boolean isNull() {
-        if (topNewses.size() == 0 || newsList.size() == 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return (topNewses.size() == 0 || newsList.size() == 0);
     }
 }

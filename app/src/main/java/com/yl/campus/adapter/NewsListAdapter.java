@@ -53,12 +53,12 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.ViewHo
         return newsList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         View itemView;
         TextView newsTitle;
         TextView newsDate;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
             this.itemView = itemView;
             newsTitle = (TextView) itemView.findViewById(R.id.newsTitle);

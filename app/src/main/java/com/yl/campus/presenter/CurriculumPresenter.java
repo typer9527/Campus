@@ -28,8 +28,8 @@ import okhttp3.Response;
 public class CurriculumPresenter {
     private final String curriculumUrl =
             "http://172.20.10.8:8080/CampusServer/json/course_data.json";
-    CurriculumView view;
-    CurriculumModel model;
+    private CurriculumView view;
+    private CurriculumModel model;
 
     public CurriculumPresenter(CurriculumView view) {
         this.view = view;

@@ -113,13 +113,13 @@ public class CurriculumActivity extends BaseActivity implements CurriculumView {
         finish();
     }
 
-    class ViewHolder {
+    private class ViewHolder {
         View courseView;
         TextView courseNameText;
         TextView teacherNameText;
         TextView coursePositionText;
 
-        public ViewHolder(Context context) {
+        ViewHolder(Context context) {
             courseView = LayoutInflater.from(context)
                     .inflate(R.layout.item_course, courseLayout, false);
             courseNameText = (TextView)
