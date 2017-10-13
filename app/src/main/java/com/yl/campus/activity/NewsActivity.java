@@ -14,6 +14,7 @@ import com.yl.campus.model.News;
 import com.yl.campus.model.TopNews;
 import com.yl.campus.presenter.NewsPresenter;
 import com.yl.campus.util.LoadingUtil;
+import com.yl.campus.util.PrefsUtil;
 import com.yl.campus.util.ToastUtil;
 import com.yl.campus.view.NewsView;
 import com.youth.banner.Banner;
@@ -95,11 +96,31 @@ public class NewsActivity extends BaseActivity implements NewsView {
         startActivity(intent);
     }
 
+    @Override
+    public void saveTopImagePrefs(String imageUrl) {
+        PrefsUtil.getEditor(this).putString("imageUrl", imageUrl).apply();
+    }
+
+    @Override
+    public String getTopImagePrefs() {
+        return PrefsUtil.getStringByKey(this, "imageUrl");
+    }
+
+    @Override
+    public void saveNewsListPrefs(String newsList) {
+        PrefsUtil.getEditor(this).putString("newsList", newsList).apply();
+    }
+
+    @Override
+    public String getNewsListPrefs() {
+        return PrefsUtil.getStringByKey(this, "newsList");
+    }
+
     private class GlideImageLoader extends ImageLoader {
         @Override
         public void displayImage(Context context, Object path, ImageView imageView) {
-            Glide.with(context).load(path).placeholder(R.mipmap.ic_launcher)
-                    .centerCrop().into(imageView);
+            Glide.with(context).load(path).placeholder(R.drawable.ic_default)
+                    .error(R.drawable.ic_default).centerCrop().into(imageView);
         }
     }
 }

@@ -39,6 +39,10 @@ public class MainPresenter {
             view.toastNotLogin();
             return;
         }
+        view.showExitDialog();
+    }
+
+    public void clearUserData() {
         view.clearLoginPrefs();
         model = new MainModel();
         view.setNotLoginText();

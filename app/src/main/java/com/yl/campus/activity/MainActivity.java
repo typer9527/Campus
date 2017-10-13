@@ -134,7 +134,7 @@ public class MainActivity extends BaseActivity implements
                 presenter.showPersonalInfo();
                 break;
             case R.id.item_exit:
-                showExitDialog();
+                presenter.exitLogin();
                 break;
         }
         return true;
@@ -175,7 +175,7 @@ public class MainActivity extends BaseActivity implements
 
     @Override
     public void setNotLoginText() {
-        nameText.setText("未登录");
+        nameText.setText("未登陆");
         idText.setText("");
     }
 
@@ -209,7 +209,7 @@ public class MainActivity extends BaseActivity implements
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        presenter.exitLogin();
+                        presenter.clearUserData();
                     }
                 }).setNegativeButton("取消", null);
         builder.show();

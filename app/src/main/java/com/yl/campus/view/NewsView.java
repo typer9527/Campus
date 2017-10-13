@@ -22,4 +22,12 @@ public interface NewsView {
     void onLoadFailed();
 
     void jumpToNewsContent(String url);
+
+    void saveTopImagePrefs(String imageUrl);
+
+    String getTopImagePrefs();
+
+    void saveNewsListPrefs(String newsList);
+
+    String getNewsListPrefs();
 }

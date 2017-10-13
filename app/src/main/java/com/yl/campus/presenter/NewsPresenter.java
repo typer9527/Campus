@@ -4,6 +4,9 @@ import com.yl.campus.model.NewsModel;
 import com.yl.campus.util.CrawlerUtil;
 import com.yl.campus.view.NewsView;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
@@ -33,8 +36,22 @@ public class NewsPresenter {
             public void subscribe(@NonNull ObservableEmitter<NewsModel> e)
                     throws Exception {
                 NewsModel model = new NewsModel();
-                model.setTopNewses(CrawlerUtil.requestTopNews());
-                model.setNewsList(CrawlerUtil.requestNewsInfo());
+                Document topImageDoc;
+                Document newsListDoc;
+                String topImage = view.getTopImagePrefs();
+                String newsList = view.getNewsListPrefs();
+                if (topImage != null && newsList != null) {
+                    topImageDoc = Jsoup.parse(topImage);
+                    newsListDoc = Jsoup.parse(newsList);
+                } else {
+                    topImageDoc = CrawlerUtil.requestDocument(CrawlerUtil.imageUrl);
+                    newsListDoc = CrawlerUtil.requestDocument(CrawlerUtil.newsUrl);
+                    // 缓存
+                    view.saveTopImagePrefs(topImageDoc.toString());
+                    view.saveNewsListPrefs(newsListDoc.toString());
+                }
+                model.setTopNewses(CrawlerUtil.parseDocToTopNews(topImageDoc));
+                model.setNewsList(CrawlerUtil.parseDocToNewsList(newsListDoc));
                 if (model.isNull()) {
                     e.onError(new Throwable());
                 }
