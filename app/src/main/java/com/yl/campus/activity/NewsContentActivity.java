@@ -1,7 +1,10 @@
 package com.yl.campus.activity;
 
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
@@ -23,6 +26,7 @@ public class NewsContentActivity extends BaseActivity implements NewContentView 
     public WebView webView;
     @ViewById
     public ProgressBar progressBar;
+    private int currentItem = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +41,47 @@ public class NewsContentActivity extends BaseActivity implements NewContentView 
     @Override
     protected String getToolbarTitle() {
         return getString(R.string.news_content);
+    }
+
+    @Override
+    protected int getMenuId() {
+        return R.menu.news_content_menu;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.item_text_size:
+                showChooseTextSizeDialog();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void showChooseTextSizeDialog() {
+        final String[] itemsText = {"特大号字", "大号字", "中号字", "小号字"};
+        final int textSize[] = {350, 300, 250, 200};
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("字号选择");
+        builder.setSingleChoiceItems(itemsText, currentItem,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        currentItem = which;
+                    }
+                });
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                webView.getSettings().setTextZoom(textSize[currentItem]);
+            }
+        }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.show();
     }
 
     @Override
