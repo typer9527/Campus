@@ -37,7 +37,7 @@ public class CurriculumPresenter {
     }
 
     public void getCurriculumData() {
-        view.showProgressDialog();
+        view.showProgressBar();
         Observable.create(new ObservableOnSubscribe<CurriculumModel>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<CurriculumModel> e) {
@@ -68,14 +68,14 @@ public class CurriculumPresenter {
                     public void onNext(@NonNull CurriculumModel curriculumModel) {
                         Curriculum curriculum = new Gson().fromJson(
                                 curriculumModel.getCurriculumJson(), Curriculum.class);
-                        view.hideProgressDialog();
+                        view.hideProgressBar();
                         view.showCourseContent(curriculum);
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
                         e.printStackTrace();
-                        view.hideProgressDialog();
+                        view.hideProgressBar();
                         view.onLoadFailed();
                     }
 

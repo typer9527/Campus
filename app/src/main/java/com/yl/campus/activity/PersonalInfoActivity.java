@@ -4,12 +4,12 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.yl.campus.R;
 import com.yl.campus.model.StudentInfo;
 import com.yl.campus.presenter.PersonalInfoPresenter;
-import com.yl.campus.util.LoadingUtil;
 import com.yl.campus.util.PrefsUtil;
 import com.yl.campus.util.ToastUtil;
 import com.yl.campus.view.PersonalInfoView;
@@ -24,6 +24,8 @@ public class PersonalInfoActivity extends BaseActivity
 
     @ViewById
     LinearLayout linearLayout;
+    @ViewById
+    ProgressBar progressBar;
     @ViewById
     TextView nameText;
     @ViewById
@@ -87,14 +89,14 @@ public class PersonalInfoActivity extends BaseActivity
     }
 
     @Override
-    public void showProgressDialog() {
+    public void showProgressBar() {
         linearLayout.setVisibility(View.GONE);
-        LoadingUtil.onLoad(this, "正在加载...");
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
-    public void hideProgressDialog() {
-        LoadingUtil.endLoad();
+    public void hideProgressBar() {
+        progressBar.setVisibility(View.GONE);
         linearLayout.setVisibility(View.VISIBLE);
     }
 

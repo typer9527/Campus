@@ -30,7 +30,7 @@ public class NewsPresenter {
     }
 
     public void show() {
-        view.showProgressDialog();
+        view.showProgressBar();
         Observable.create(new ObservableOnSubscribe<NewsModel>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<NewsModel> e)

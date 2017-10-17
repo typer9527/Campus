@@ -8,9 +8,9 @@ import com.yl.campus.model.Curriculum;
  */
 
 public interface CurriculumView {
-    void showProgressDialog();
+    void showProgressBar();
 
-    void hideProgressDialog();
+    void hideProgressBar();
 
     void initCurriculum();
 

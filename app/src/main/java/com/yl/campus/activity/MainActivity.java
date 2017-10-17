@@ -31,11 +31,11 @@ public class MainActivity extends BaseActivity implements
         NavigationView.OnNavigationItemSelectedListener {
 
     @ViewById
-    public DrawerLayout drawerLayout;
+    DrawerLayout drawerLayout;
     @ViewById
-    public NavigationView navView;
+    NavigationView navView;
     @ViewById
-    public GridView gridView;
+    GridView gridView;
     private final int LOGIN = 1;
     private TextView nameText;
     private TextView idText;

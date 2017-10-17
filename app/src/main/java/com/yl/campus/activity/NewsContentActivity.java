@@ -23,9 +23,9 @@ import org.androidannotations.annotations.ViewById;
 public class NewsContentActivity extends BaseActivity implements NewContentView {
 
     @ViewById
-    public WebView webView;
+    WebView webView;
     @ViewById
-    public ProgressBar progressBar;
+    ProgressBar progressBar;
     private int currentItem = 2;
 
     @Override

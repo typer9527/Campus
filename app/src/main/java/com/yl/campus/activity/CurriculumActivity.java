@@ -9,13 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.GridView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.yl.campus.R;
 import com.yl.campus.adapter.DateAndWeekAdapter;
 import com.yl.campus.model.Curriculum;
 import com.yl.campus.presenter.CurriculumPresenter;
-import com.yl.campus.util.LoadingUtil;
 import com.yl.campus.util.ToastUtil;
 import com.yl.campus.view.CurriculumView;
 
@@ -30,6 +30,8 @@ public class CurriculumActivity extends BaseActivity implements CurriculumView {
     GridView dateAndWeekGrid;
     @ViewById
     FrameLayout courseLayout;
+    @ViewById
+    ProgressBar progressBar;
     private int courseWidth;
     private int courseHeight;
     private CurriculumPresenter presenter = new CurriculumPresenter(this);
@@ -50,13 +52,13 @@ public class CurriculumActivity extends BaseActivity implements CurriculumView {
     }
 
     @Override
-    public void showProgressDialog() {
-        LoadingUtil.onLoad(this, "正在加载...");
+    public void showProgressBar() {
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
-    public void hideProgressDialog() {
-        LoadingUtil.endLoad();
+    public void hideProgressBar() {
+        progressBar.setVisibility(View.GONE);
     }
 
     @AfterViews

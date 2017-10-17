@@ -11,7 +11,7 @@ import java.util.List;
  */
 
 public interface NewsView {
-    void showProgressDialog();
+    void showProgressBar();
 
     void hideProgressDialog();
 

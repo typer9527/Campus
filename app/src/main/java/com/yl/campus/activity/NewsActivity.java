@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.bumptech.glide.Glide;
 import com.yl.campus.R;
@@ -13,7 +15,6 @@ import com.yl.campus.adapter.NewsListAdapter;
 import com.yl.campus.model.News;
 import com.yl.campus.model.TopNews;
 import com.yl.campus.presenter.NewsPresenter;
-import com.yl.campus.util.LoadingUtil;
 import com.yl.campus.util.PrefsUtil;
 import com.yl.campus.util.ToastUtil;
 import com.yl.campus.view.NewsView;
@@ -30,9 +31,11 @@ import java.util.List;
 @EActivity
 public class NewsActivity extends BaseActivity implements NewsView {
     @ViewById
-    public Banner banner;
+    Banner banner;
     @ViewById
-    public RecyclerView recyclerView;
+    RecyclerView recyclerView;
+    @ViewById
+    ProgressBar progressBar;
 
     private NewsPresenter presenter = new NewsPresenter(this);
 
@@ -53,13 +56,13 @@ public class NewsActivity extends BaseActivity implements NewsView {
     }
 
     @Override
-    public void showProgressDialog() {
-        LoadingUtil.onLoad(this, "正在加载...");
+    public void showProgressBar() {
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideProgressDialog() {
-        LoadingUtil.endLoad();
+        progressBar.setVisibility(View.GONE);
     }
 
     @Override
@@ -86,7 +89,9 @@ public class NewsActivity extends BaseActivity implements NewsView {
 
     @Override
     public void onLoadFailed() {
-        ToastUtil.showToast(this, "加载失败", 0);
+        if (presenter != null) {
+            ToastUtil.showToast(this, "加载失败", 0);
+        }
     }
 
     @Override
@@ -122,5 +127,11 @@ public class NewsActivity extends BaseActivity implements NewsView {
             Glide.with(context).load(path).placeholder(R.drawable.ic_default)
                     .error(R.drawable.ic_default).into(imageView);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter = null;
     }
 }

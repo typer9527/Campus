@@ -16,9 +16,9 @@ public interface PersonalInfoView {
 
     void setInfoData(StudentInfo info);
 
-    void showProgressDialog();
+    void showProgressBar();
 
-    void hideProgressDialog();
+    void hideProgressBar();
 
     void onNetworkError();
 }

@@ -38,7 +38,7 @@ public class PersonalInfoPresenter {
     }
 
     public void showInfoData() {
-        view.showProgressDialog();
+        view.showProgressBar();
         Observable.create(new ObservableOnSubscribe<PersonalInfoModel>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<PersonalInfoModel> e) {
@@ -72,7 +72,7 @@ public class PersonalInfoPresenter {
 
                     @Override
                     public void onNext(@NonNull PersonalInfoModel personalInfoModel) {
-                        view.hideProgressDialog();
+                        view.hideProgressBar();
                         view.savePrefsInfo(personalInfoModel.getInfoJson());
                         view.setInfoData(personalInfoModel.getStudentInfo());
                     }
@@ -80,7 +80,7 @@ public class PersonalInfoPresenter {
                     @Override
                     public void onError(@NonNull Throwable e) {
                         e.printStackTrace();
-                        view.hideProgressDialog();
+                        view.hideProgressBar();
                         view.onNetworkError();
                     }
 
