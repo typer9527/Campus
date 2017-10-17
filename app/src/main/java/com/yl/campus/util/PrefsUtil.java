@@ -15,9 +15,9 @@ public class PrefsUtil {
                 .getString(key, null);
     }
 
-    public static void clearPrefs(Context context) {
+    public static void setNullByKey(Context context, String key) {
         SharedPreferences.Editor editor = getEditor(context);
-        editor.clear();
+        editor.putString(key, null);
         editor.apply();
     }
 

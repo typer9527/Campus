@@ -120,7 +120,7 @@ public class NewsActivity extends BaseActivity implements NewsView {
         @Override
         public void displayImage(Context context, Object path, ImageView imageView) {
             Glide.with(context).load(path).placeholder(R.drawable.ic_default)
-                    .error(R.drawable.ic_default).centerCrop().into(imageView);
+                    .error(R.drawable.ic_default).into(imageView);
         }
     }
 }

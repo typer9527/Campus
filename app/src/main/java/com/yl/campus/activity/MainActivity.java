@@ -193,7 +193,9 @@ public class MainActivity extends BaseActivity implements
 
     @Override
     public void clearLoginPrefs() {
-        PrefsUtil.clearPrefs(this);
+        PrefsUtil.setNullByKey(this, "name");
+        PrefsUtil.setNullByKey(this, "id");
+        PrefsUtil.setNullByKey(this, "info");
     }
 
     @Override
