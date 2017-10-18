@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -13,6 +14,7 @@ import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
 import com.yl.campus.R;
+import com.yl.campus.util.ToastUtil;
 import com.yl.campus.view.NewContentView;
 
 import org.androidannotations.annotations.AfterViews;
@@ -111,6 +113,12 @@ public class NewsContentActivity extends BaseActivity implements NewContentView 
             }
 
             @Override
+            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+                super.onReceivedError(view, request, error);
+                onLoadFailed();
+            }
+
+            @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 webView.setVisibility(View.INVISIBLE);
                 showProgressBar();
@@ -147,6 +155,7 @@ public class NewsContentActivity extends BaseActivity implements NewContentView 
 
     @Override
     public void onLoadFailed() {
-
+        ToastUtil.showToast(this, "网络错误", 0);
+        finish();
     }
 }
