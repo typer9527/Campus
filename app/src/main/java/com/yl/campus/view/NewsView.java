@@ -15,9 +15,7 @@ public interface NewsView {
 
     void hideProgressDialog();
 
-    void showTopNewses(List<TopNews> topNewses);
-
-    void showNewsList(List<News> newsList);
+    void showNews(List<TopNews> topNewses, List<News> newsList);
 
     void onLoadFailed();
 

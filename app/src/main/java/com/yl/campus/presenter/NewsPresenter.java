@@ -67,8 +67,7 @@ public class NewsPresenter {
 
                     @Override
                     public void onNext(@NonNull NewsModel model) {
-                        view.showTopNewses(model.getTopNewses());
-                        view.showNewsList(model.getNewsList());
+                        view.showNews(model.getTopNewses(), model.getNewsList());
                     }
 
                     @Override
