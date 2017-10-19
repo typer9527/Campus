@@ -19,6 +19,7 @@ import com.yl.campus.view.NewsView;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @EActivity
@@ -27,13 +28,19 @@ public class NewsActivity extends BaseActivity implements NewsView {
     RecyclerView recyclerView;
     @ViewById
     ProgressBar progressBar;
-
-    private NewsPresenter presenter = new NewsPresenter(this);
+    private List<TopNews> topNewses = new ArrayList<>();
+    private List<News> newsList = new ArrayList<>();
+    private NewsPresenter presenter;
+    private NewsListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter.show();
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        adapter = new NewsListAdapter(topNewses, newsList, this);
+        recyclerView.setAdapter(adapter);
+        presenter = new NewsPresenter(this);
     }
 
     @Override
@@ -57,10 +64,12 @@ public class NewsActivity extends BaseActivity implements NewsView {
     }
 
     @Override
-    public void showNews(List<TopNews> topNewses, List<News> newsList) {
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(new NewsListAdapter(topNewses, newsList, this));
+    public void refreshNews(List<TopNews> topNewses, List<News> newsList) {
+        this.topNewses.clear();
+        this.topNewses.addAll(topNewses);
+        this.newsList.clear();
+        this.newsList.addAll(newsList);
+        adapter.notifyDataSetChanged();
     }
 
     @Override

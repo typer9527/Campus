@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -28,10 +29,12 @@ import java.util.List;
 public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.ViewHolder> {
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_NORMAL = 1;
+    private static final int TYPE_FOOTER = 2;
     private List<TopNews> topNewsList;
     private List<News> newsList;
     private NewsView newsView;
     private View topBannerView;
+    private View loadMoreView;
 
     public NewsListAdapter(List<TopNews> topNewsList,
                            List<News> newsList, NewsView newsView) {
@@ -45,6 +48,9 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.ViewHo
         if (position == 0) {
             return TYPE_HEADER;
         }
+        if (position == newsList.size() + 1) {
+            return TYPE_FOOTER;
+        }
         return TYPE_NORMAL;
     }
 
@@ -54,6 +60,11 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.ViewHo
             topBannerView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.item_top_banner, parent, false);
             return new ViewHolder(topBannerView);
+        }
+        if (viewType == TYPE_FOOTER) {
+            loadMoreView = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.item_load_more, parent, false);
+            return new ViewHolder(loadMoreView);
         }
         final View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_news, parent, false);
@@ -92,17 +103,21 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.ViewHo
                 holder.newsTitle.setText(news.title);
                 holder.newsDate.setText(news.date);
                 break;
+            case TYPE_FOOTER:
+                break;
             default:
         }
     }
 
     @Override
     public int getItemCount() {
-        return newsList.size() + 1;
+        return newsList.size() + 2;
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
         Banner banner;
+        ProgressBar progressBar;
+        TextView loadMoreText;
         View itemView;
         TextView newsTitle;
         TextView newsDate;
@@ -110,7 +125,11 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.ViewHo
         ViewHolder(View itemView) {
             super(itemView);
             if (itemView == topBannerView) {
-                banner = (Banner) topBannerView.findViewById(R.id.banner);
+                banner = (Banner) itemView.findViewById(R.id.banner);
+            }
+            if (itemView == loadMoreView) {
+                progressBar = (ProgressBar) itemView.findViewById(R.id.progressBar);
+                loadMoreText = (TextView) itemView.findViewById(R.id.loadMoreText);
             }
             this.itemView = itemView;
             newsTitle = (TextView) itemView.findViewById(R.id.newsTitle);

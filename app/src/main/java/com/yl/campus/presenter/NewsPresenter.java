@@ -24,18 +24,20 @@ import io.reactivex.schedulers.Schedulers;
 public class NewsPresenter {
 
     private NewsView view;
+    private NewsModel model;
 
     public NewsPresenter(NewsView view) {
         this.view = view;
+        model = new NewsModel();
+        handleNewsData();
     }
 
-    public void show() {
+    private void handleNewsData() {
         view.showProgressBar();
         Observable.create(new ObservableOnSubscribe<NewsModel>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<NewsModel> e)
                     throws Exception {
-                NewsModel model = new NewsModel();
                 Document topImageDoc;
                 Document newsListDoc;
                 String topImage = view.getTopImagePrefs();
@@ -67,7 +69,7 @@ public class NewsPresenter {
 
                     @Override
                     public void onNext(@NonNull NewsModel model) {
-                        view.showNews(model.getTopNewses(), model.getNewsList());
+                        view.refreshNews(model.getTopNewses(), model.getNewsList());
                     }
 
                     @Override
