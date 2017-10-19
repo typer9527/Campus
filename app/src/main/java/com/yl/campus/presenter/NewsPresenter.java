@@ -110,10 +110,13 @@ public class NewsPresenter {
                     public void onError(@NonNull Throwable e) {
                         if (isOnRefresh) {
                             view.onRefreshFailed();
+                            isOnRefresh = false;
                             return;
                         }
                         if (isOnLoadMore) {
                             view.onLoadFailed();
+                            isOnLoadMore = false;
+                            return;
                         }
                         view.hideProgressDialog();
                         view.onLoadFailed();

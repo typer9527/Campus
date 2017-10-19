@@ -24,6 +24,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     Toolbar toolbar;
     @ViewById
     TextView titleText;
+    ActionBar actionBar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,8 +36,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void initToolbarLayout() {
         setSupportActionBar(toolbar);
         // 设置默认标题
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle(getDefaultTitle());
+        actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle(getDefaultTitle());
         }
         // 设置居中标题
         titleText.setText(getToolbarTitle());
@@ -47,7 +49,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     // 设置主页按钮，默认返回
     private void setAndShowHomeButton() {
-        ActionBar actionBar = getSupportActionBar();
         int resId = getHomeAsUpIndicator();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);

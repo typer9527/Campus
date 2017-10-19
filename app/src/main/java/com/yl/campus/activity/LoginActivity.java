@@ -38,8 +38,8 @@ public class LoginActivity extends BaseActivity implements LoginView {
     }
 
     @Override
-    protected String getToolbarTitle() {
-        return "登陆";
+    protected String getDefaultTitle() {
+        return getString(R.string.login);
     }
 
     @Click

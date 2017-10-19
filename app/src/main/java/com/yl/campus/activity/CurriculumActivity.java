@@ -47,7 +47,7 @@ public class CurriculumActivity extends BaseActivity implements CurriculumView {
     }
 
     @Override
-    protected String getToolbarTitle() {
+    protected String getDefaultTitle() {
         return getString(R.string.week_num_text);
     }
 
@@ -59,6 +59,12 @@ public class CurriculumActivity extends BaseActivity implements CurriculumView {
     @Override
     public void hideProgressBar() {
         progressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter = null;
     }
 
     @AfterViews
@@ -93,7 +99,7 @@ public class CurriculumActivity extends BaseActivity implements CurriculumView {
 
     @Override
     public void showCourseContent(Curriculum curriculum) {
-        titleText.setText(getString(R.string.week_num_text, curriculum.weekNum));
+        actionBar.setTitle(getString(R.string.week_num_text, curriculum.weekNum));
         for (Curriculum.Course course : curriculum.courses) {
             ViewHolder holder = new ViewHolder(this);
             holder.courseNameText.setText(course.courseName);
@@ -111,8 +117,10 @@ public class CurriculumActivity extends BaseActivity implements CurriculumView {
 
     @Override
     public void onLoadFailed() {
-        ToastUtil.showToast(this, "加载失败", 0);
-        finish();
+        if (presenter != null) {
+            ToastUtil.showToast(this, "加载失败", 0);
+            finish();
+        }
     }
 
     private class ViewHolder {

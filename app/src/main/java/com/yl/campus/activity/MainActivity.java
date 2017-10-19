@@ -69,7 +69,7 @@ public class MainActivity extends BaseActivity implements
 
     @Override
     protected String getDefaultTitle() {
-        return "安科小助手";
+        return getString(R.string.app_name);
     }
 
     @Override

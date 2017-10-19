@@ -41,7 +41,7 @@ public class NewsContentActivity extends BaseActivity implements NewContentView 
     }
 
     @Override
-    protected String getToolbarTitle() {
+    protected String getDefaultTitle() {
         return getString(R.string.news_content);
     }
 
@@ -103,12 +103,9 @@ public class NewsContentActivity extends BaseActivity implements NewContentView 
         WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true);
         settings.setUseWideViewPort(true);
-        settings.setSupportZoom(true);
-        settings.setBuiltInZoomControls(true);
         settings.setLoadWithOverviewMode(true);
         settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         settings.setTextZoom(250);
-        // TODO: 2017/10/19 网页无法自适应屏幕大小
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(

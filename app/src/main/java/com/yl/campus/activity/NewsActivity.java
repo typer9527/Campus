@@ -70,7 +70,7 @@ public class NewsActivity extends BaseActivity implements NewsView,
     }
 
     @Override
-    protected String getToolbarTitle() {
+    protected String getDefaultTitle() {
         return getString(R.string.news_page);
     }
 
@@ -103,12 +103,14 @@ public class NewsActivity extends BaseActivity implements NewsView,
 
     @Override
     public void endRefresh() {
+        if (presenter == null) return;
         refreshNews.setRefreshing(false);
         ToastUtil.showToast(this, "刷新成功", 0);
     }
 
     @Override
     public void onRefreshFailed() {
+        if (presenter == null) return;
         refreshNews.setRefreshing(false);
         ToastUtil.showToast(this, "刷新失败", 0);
     }
@@ -126,6 +128,7 @@ public class NewsActivity extends BaseActivity implements NewsView,
 
     @Override
     public void endLoadMore() {
+        if (presenter == null) return;
         ToastUtil.showToast(NewsActivity.this, "加载成功", 0);
     }
 

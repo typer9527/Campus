@@ -51,7 +51,7 @@ public class PersonalInfoActivity extends BaseActivity
     }
 
     @Override
-    protected String getToolbarTitle() {
+    protected String getDefaultTitle() {
         return getString(R.string.info);
     }
 

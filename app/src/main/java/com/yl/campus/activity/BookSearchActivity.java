@@ -56,7 +56,7 @@ public class BookSearchActivity extends BaseActivity implements
     }
 
     @Override
-    protected String getToolbarTitle() {
+    protected String getDefaultTitle() {
         return getString(R.string.book_search);
     }
 
