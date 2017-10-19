@@ -1,7 +1,9 @@
 package com.yl.campus.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -23,7 +25,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @EActivity
-public class NewsActivity extends BaseActivity implements NewsView {
+public class NewsActivity extends BaseActivity implements NewsView,
+        SwipeRefreshLayout.OnRefreshListener {
+    @ViewById
+    SwipeRefreshLayout refreshNews;
     @ViewById
     RecyclerView recyclerView;
     @ViewById
@@ -40,6 +45,27 @@ public class NewsActivity extends BaseActivity implements NewsView {
         recyclerView.setLayoutManager(linearLayoutManager);
         adapter = new NewsListAdapter(topNewses, newsList, this);
         recyclerView.setAdapter(adapter);
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            int scrollState; // 滑动状态
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                scrollState = newState;
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if (!(scrollState == RecyclerView.SCROLL_STATE_IDLE) &&
+                        !recyclerView.canScrollVertically(1)) {
+                    // 加载更多新闻
+                    onLoadMore();
+                    if (!presenter.isOnLoadMore)
+                        presenter.loadMoreNews(true);
+                }
+            }
+        });
+        refreshNews.setColorSchemeColors(Color.parseColor("#3F51B5"));
+        refreshNews.setOnRefreshListener(this);
         presenter = new NewsPresenter(this);
     }
 
@@ -61,6 +87,46 @@ public class NewsActivity extends BaseActivity implements NewsView {
     @Override
     public void hideProgressDialog() {
         progressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onRefresh() {
+        onRefreshing();
+        presenter.refreshNews(true);
+    }
+
+    @Override
+    public void onRefreshing() {
+        refreshNews.setRefreshing(true);
+        ToastUtil.showToast(this, "正在刷新", 0);
+    }
+
+    @Override
+    public void endRefresh() {
+        refreshNews.setRefreshing(false);
+        ToastUtil.showToast(this, "刷新成功", 0);
+    }
+
+    @Override
+    public void onRefreshFailed() {
+        refreshNews.setRefreshing(false);
+        ToastUtil.showToast(this, "刷新失败", 0);
+    }
+
+    @Override
+    public void showMoreNews(List<News> newsList) {
+        this.newsList.addAll(newsList);
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onLoadMore() {
+        ToastUtil.showToast(NewsActivity.this, "正在加载", 0);
+    }
+
+    @Override
+    public void endLoadMore() {
+        ToastUtil.showToast(NewsActivity.this, "加载成功", 0);
     }
 
     @Override
@@ -88,12 +154,12 @@ public class NewsActivity extends BaseActivity implements NewsView {
 
     @Override
     public void saveTopImagePrefs(String imageUrl) {
-        PrefsUtil.getEditor(this).putString("imageUrl", imageUrl).apply();
+        PrefsUtil.getEditor(this).putString("homeUrl", imageUrl).apply();
     }
 
     @Override
     public String getTopImagePrefs() {
-        return PrefsUtil.getStringByKey(this, "imageUrl");
+        return PrefsUtil.getStringByKey(this, "homeUrl");
     }
 
     @Override

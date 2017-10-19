@@ -17,7 +17,7 @@ import java.util.List;
  */
 
 public class CrawlerUtil {
-    public final static String imageUrl = "http://www.ahstu.edu.cn";
+    public final static String homeUrl = "http://www.ahstu.edu.cn";
     //    public final static String newsUrl = "http://www.ahstu.edu.cn/index/akxw.htm";
     public final static String newsUrl = "http://www.ahstu.edu.cn/index/xydt.htm";
 
@@ -37,7 +37,7 @@ public class CrawlerUtil {
         List<TopNews> topNewses = new ArrayList<>();
         for (int i = 0; i < image.size(); i++) {
             TopNews topNews = new TopNews();
-            topNews.imageUrl = imageUrl + "/" +
+            topNews.imageUrl = homeUrl + "/" +
                     image.get(i).select("img[src]").attr("src");
             topNews.title = title.get(i).text();
             topNewses.add(topNews);
@@ -52,9 +52,17 @@ public class CrawlerUtil {
             News news = new News();
             news.title = elements.get(i).select("span.conListWord").text();
             news.date = elements.get(i).select("span.conListTime").text();
-            news.url = imageUrl + "/" + elements.get(i).attr("href");
+            news.url = homeUrl + "/" + elements.get(i).attr("href");
             newsList.add(news);
         }
         return newsList;
+    }
+
+    public static String parseMoreNewsUrl(Document document) {
+        Elements elements = document.select("a.Next");
+        String url = elements.get(0).attr("href");
+        return url.contains("xydt") ? homeUrl + "/index/" + url :
+                homeUrl + "/index/xydt/" + url;
+
     }
 }

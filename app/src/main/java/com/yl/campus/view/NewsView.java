@@ -17,6 +17,18 @@ public interface NewsView {
 
     void refreshNews(List<TopNews> topNewses, List<News> newsList);
 
+    void onRefreshing();
+
+    void endRefresh();
+
+    void onRefreshFailed();
+
+    void showMoreNews(List<News> newsList);
+
+    void onLoadMore();
+
+    void endLoadMore();
+
     void onLoadFailed();
 
     void jumpToNewsContent(String url);

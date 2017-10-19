@@ -25,6 +25,11 @@ public class NewsPresenter {
 
     private NewsView view;
     private NewsModel model;
+    private Document topImageDoc;
+    private Document newsListDoc;
+    private Document moreNewsDoc;
+    private boolean isOnRefresh;
+    public boolean isOnLoadMore = false;
 
     public NewsPresenter(NewsView view) {
         this.view = view;
@@ -32,25 +37,50 @@ public class NewsPresenter {
         handleNewsData();
     }
 
+    public void refreshNews(boolean isOnRefresh) {
+        if (isOnRefresh) {
+            this.isOnRefresh = true;
+            handleNewsData();
+        }
+    }
+
+    public void loadMoreNews(boolean isOnLoadMore) {
+        if (isOnLoadMore) {
+            this.isOnLoadMore = true;
+            if (moreNewsDoc == null) {
+                moreNewsDoc = newsListDoc;
+            }
+            handleNewsData();
+        }
+    }
+
     private void handleNewsData() {
-        view.showProgressBar();
+        if (!isOnRefresh && !isOnLoadMore)
+            view.showProgressBar();
         Observable.create(new ObservableOnSubscribe<NewsModel>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<NewsModel> e)
                     throws Exception {
-                Document topImageDoc;
-                Document newsListDoc;
                 String topImage = view.getTopImagePrefs();
                 String newsList = view.getNewsListPrefs();
-                if (topImage != null && newsList != null) {
+                if (isOnRefresh) {
+                    getNewsFromServer();
+                }
+                if (isOnLoadMore) {
+                    String moreNewsUrl = CrawlerUtil.parseMoreNewsUrl(moreNewsDoc);
+                    if (moreNewsUrl == null) e.onError(new Throwable());
+                    moreNewsDoc = CrawlerUtil.requestDocument(moreNewsUrl);
+                    model.setNewsList(CrawlerUtil.parseDocToNewsList(moreNewsDoc));
+                    if (model.getNewsList() == null) e.onError(new Throwable());
+                    e.onNext(model);
+                    e.onComplete();
+                }
+                if (!isOnRefresh && !isOnLoadMore && topImage != null &&
+                        newsList != null) {
                     topImageDoc = Jsoup.parse(topImage);
                     newsListDoc = Jsoup.parse(newsList);
                 } else {
-                    topImageDoc = CrawlerUtil.requestDocument(CrawlerUtil.imageUrl);
-                    newsListDoc = CrawlerUtil.requestDocument(CrawlerUtil.newsUrl);
-                    // 缓存
-                    view.saveTopImagePrefs(topImageDoc.toString());
-                    view.saveNewsListPrefs(newsListDoc.toString());
+                    getNewsFromServer();
                 }
                 model.setTopNewses(CrawlerUtil.parseDocToTopNews(topImageDoc));
                 model.setNewsList(CrawlerUtil.parseDocToNewsList(newsListDoc));
@@ -69,19 +99,48 @@ public class NewsPresenter {
 
                     @Override
                     public void onNext(@NonNull NewsModel model) {
+                        if (isOnLoadMore) {
+                            view.showMoreNews(model.getNewsList());
+                            return;
+                        }
                         view.refreshNews(model.getTopNewses(), model.getNewsList());
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
+                        if (isOnRefresh) {
+                            view.onRefreshFailed();
+                            return;
+                        }
+                        if (isOnLoadMore) {
+                            view.onLoadFailed();
+                        }
                         view.hideProgressDialog();
                         view.onLoadFailed();
                     }
 
                     @Override
                     public void onComplete() {
+                        if (isOnRefresh) {
+                            isOnRefresh = false;
+                            view.endRefresh();
+                            return;
+                        }
+                        if (isOnLoadMore) {
+                            isOnLoadMore = false;
+                            view.endLoadMore();
+                            return;
+                        }
                         view.hideProgressDialog();
                     }
                 });
+    }
+
+    private void getNewsFromServer() {
+        topImageDoc = CrawlerUtil.requestDocument(CrawlerUtil.homeUrl);
+        newsListDoc = CrawlerUtil.requestDocument(CrawlerUtil.newsUrl);
+        // 缓存
+        view.saveTopImagePrefs(topImageDoc.toString());
+        view.saveNewsListPrefs(newsListDoc.toString());
     }
 }
