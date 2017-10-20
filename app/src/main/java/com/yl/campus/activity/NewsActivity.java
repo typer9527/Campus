@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import com.yl.campus.R;
-import com.yl.campus.adapter.NewsListAdapter;
+import com.yl.campus.adapter.NewsAdapter;
 import com.yl.campus.model.News;
 import com.yl.campus.model.TopNews;
 import com.yl.campus.presenter.NewsPresenter;
@@ -36,14 +36,14 @@ public class NewsActivity extends BaseActivity implements NewsView,
     private List<TopNews> topNewses = new ArrayList<>();
     private List<News> newsList = new ArrayList<>();
     private NewsPresenter presenter;
-    private NewsListAdapter adapter;
+    private NewsAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
-        adapter = new NewsListAdapter(topNewses, newsList, this);
+        adapter = new NewsAdapter(newsList, topNewses);
         recyclerView.setAdapter(adapter);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             int scrollState; // 滑动状态

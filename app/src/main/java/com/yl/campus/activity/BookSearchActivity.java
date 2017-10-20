@@ -71,7 +71,7 @@ public class BookSearchActivity extends BaseActivity implements
         searchView.setOnQueryTextListener(this);
         refreshBookText.setOnClickListener(this);
         bookList = new ArrayList<>();
-        adapter = new BookListAdapter(bookList, this);
+        adapter = new BookListAdapter(bookList);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
