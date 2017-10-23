@@ -16,7 +16,8 @@ import java.util.List;
  * Created by Luke on 2017/10/20.
  */
 
-abstract class SuperAdapter<T> extends RecyclerView.Adapter<SuperAdapter.BaseViewHolder> {
+abstract class SuperAdapter<T> extends
+        RecyclerView.Adapter<SuperAdapter.BaseViewHolder> {
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_NORMAL = 1;
     private static final int TYPE_FOOTER = 2;
