@@ -40,7 +40,8 @@ public class DateAndWeekAdapter extends BaseAdapter {
             if (i == 0) {
                 dateAndWeek.date = month + 1 + "月";
             } else {
-                dateAndWeek.date = date - week + i + "号";
+                if ((date - week + i) > 0)
+                    dateAndWeek.date = date - week + i + "号";
             }
             dateAndWeek.week = weekName[i];
             list.add(dateAndWeek);
