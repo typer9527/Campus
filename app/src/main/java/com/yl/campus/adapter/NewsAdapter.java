@@ -39,6 +39,7 @@ public class NewsAdapter extends SuperAdapter<News> {
             images.add(topNews.imageUrl);
             titles.add(topNews.title);
         }
+        banner.setDelayTime(3500);
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
         banner.setImageLoader(new GlideImageLoader());
         banner.setImages(images);

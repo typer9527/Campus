@@ -7,11 +7,11 @@
             android:title="@string/home" />
         <item
             android:id="@+id/item_info"
-            android:icon="@drawable/ic_info"
+            android:icon="@drawable/ic_portrait"
             android:title="@string/info" />
         <item
             android:id="@+id/item_exit"
-            android:icon="@drawable/ic_exit"
+            android:icon="@drawable/ic_exit_to_app"
             android:title="@string/exit" />
     </group>
 </menu>

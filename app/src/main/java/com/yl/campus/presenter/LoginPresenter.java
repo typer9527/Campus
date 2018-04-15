@@ -26,7 +26,7 @@ import okhttp3.Response;
 
 public class LoginPresenter {
     private final String loginUrl =
-            "http://172.20.10.8:8080/CampusServer/LoginAction";
+            "http://127.0.0.1:8080/CampusServer/LoginAction";
     private LoginView view;
     private LoginModel model;
 

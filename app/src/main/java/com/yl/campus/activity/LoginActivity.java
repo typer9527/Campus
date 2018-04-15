@@ -17,6 +17,7 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
+// TODO: 2018/4/15 改为模拟登录
 @EActivity
 public class LoginActivity extends BaseActivity implements LoginView {
 

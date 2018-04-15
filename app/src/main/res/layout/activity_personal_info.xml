@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -39,7 +40,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
                     android:layout_marginTop="20dp"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/sexText"
@@ -50,7 +51,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
                     android:layout_marginTop="20dp"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/birthdayText"
@@ -61,7 +62,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
                     android:layout_marginTop="20dp"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
             </LinearLayout>
 
             <View
@@ -71,10 +72,12 @@
 
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="150dp"
+                android:layout_gravity="center_vertical"
                 android:layout_weight="1"
                 android:padding="15dp"
-                android:src="@drawable/ic_head_image" />
+                android:src="@drawable/ic_head_img"
+                tools:ignore="ContentDescription" />
         </LinearLayout>
 
         <View
@@ -102,7 +105,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_weight="2"
                 android:text="@string/id_text"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/idText"
@@ -113,7 +116,7 @@
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="20dp"
                 android:layout_weight="3"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
         </LinearLayout>
 
         <View
@@ -135,7 +138,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_weight="2"
                 android:text="@string/grade_text"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/gradeText"
@@ -146,7 +149,7 @@
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="20dp"
                 android:layout_weight="3"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
         </LinearLayout>
 
         <View
@@ -168,7 +171,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_weight="2"
                 android:text="@string/faculty_text"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/facultyText"
@@ -179,7 +182,7 @@
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="20dp"
                 android:layout_weight="3"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
         </LinearLayout>
 
         <View

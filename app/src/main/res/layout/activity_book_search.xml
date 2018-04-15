@@ -33,7 +33,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:text="@string/refresh_book"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/bookListText"
@@ -42,7 +42,7 @@
             android:layout_toLeftOf="@id/refreshBookText"
             android:layout_toStartOf="@id/refreshBookText"
             android:text="@string/recommend_book"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
         <View
             android:layout_width="match_parent"

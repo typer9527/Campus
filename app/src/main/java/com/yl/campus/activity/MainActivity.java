@@ -109,12 +109,14 @@ public class MainActivity extends BaseActivity implements
                 startActivity(new Intent(MainActivity.this, NewsActivity_.class));
                 break;
             case 1:
-                if (presenter.isLogon()) {
-                    startActivity(new Intent(MainActivity.this,
-                            CurriculumActivity_.class));
-                } else {
-                    toastNotLogin();
-                }
+                startActivity(new Intent(MainActivity.this,
+                        CurriculumActivity_.class));
+//                if (presenter.isLogon()) {
+//                    startActivity(new Intent(MainActivity.this,
+//                            CurriculumActivity_.class));
+//                } else {
+//                    toastNotLogin();
+//                }
                 break;
             case 2:
                 startActivity(new Intent(MainActivity.this, BookSearchActivity_.class));
