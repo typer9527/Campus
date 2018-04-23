@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.yl.campus.app.model.Curriculum;
 import com.yl.campus.app.model.CurriculumModel;
 import com.yl.campus.app.view.CurriculumView;
+import com.yl.campus.common.base.BasePresenter;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -25,19 +26,13 @@ import okhttp3.Response;
  * Created by Luke on 2017/10/9.
  */
 
-public class CurriculumPresenter {
+public class CurriculumPresenter extends BasePresenter<CurriculumView> {
     private final String curriculumUrl =
             "http://wanandroid.com/tools/mockapi/2301/course";
-    private CurriculumView view;
-    private CurriculumModel model;
-
-    public CurriculumPresenter(CurriculumView view) {
-        this.view = view;
-        model = new CurriculumModel();
-    }
+    private CurriculumModel model = new CurriculumModel();
 
     public void getCurriculumData() {
-        view.showProgressBar();
+        mView.showLoadView("");
         Observable.create(new ObservableOnSubscribe<CurriculumModel>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<CurriculumModel> e) {
@@ -68,15 +63,14 @@ public class CurriculumPresenter {
                     public void onNext(@NonNull CurriculumModel curriculumModel) {
                         Curriculum curriculum = new Gson().fromJson(
                                 curriculumModel.getCurriculumJson(), Curriculum.class);
-                        view.hideProgressBar();
-                        view.showCourseContent(curriculum);
+                        mView.hideLoadView();
+                        mView.showCourseContent(curriculum);
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
                         e.printStackTrace();
-                        view.hideProgressBar();
-                        view.onLoadFailed();
+                        mView.onNetworkError();
                     }
 
                     @Override

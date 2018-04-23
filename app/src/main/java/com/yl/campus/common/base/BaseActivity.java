@@ -35,12 +35,21 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         // 设置竖屏
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        initBasePresenter();
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
         ButterKnife.bind(this);
         initToolbarLayout();
         initView();
         initData();
+        initCreate(savedInstanceState);
+    }
+
+    protected void initCreate(Bundle savedInstanceState) {
+    }
+
+    protected void initBasePresenter() {
+
     }
 
     protected void initData() {

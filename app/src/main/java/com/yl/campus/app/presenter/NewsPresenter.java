@@ -1,6 +1,7 @@
 package com.yl.campus.app.presenter;
 
 import com.yl.campus.app.model.NewsModel;
+import com.yl.campus.common.base.BasePresenter;
 import com.yl.campus.common.utils.CrawlerUtils;
 import com.yl.campus.app.view.NewsView;
 
@@ -21,21 +22,14 @@ import io.reactivex.schedulers.Schedulers;
  * Created by Luke on 2017/9/27.
  */
 
-public class NewsPresenter {
+public class NewsPresenter extends BasePresenter<NewsView> {
 
-    private NewsView view;
-    private NewsModel model;
+    private NewsModel model = new NewsModel();
     private Document topImageDoc;
     private Document newsListDoc;
     private Document moreNewsDoc;
     private boolean isOnRefresh;
     public boolean isOnLoadMore = false;
-
-    public NewsPresenter(NewsView view) {
-        this.view = view;
-        model = new NewsModel();
-        handleNewsData();
-    }
 
     public void refreshNews(boolean isOnRefresh) {
         if (isOnRefresh) {
@@ -54,15 +48,15 @@ public class NewsPresenter {
         }
     }
 
-    private void handleNewsData() {
+    public void handleNewsData() {
         if (!isOnRefresh && !isOnLoadMore)
-            view.showProgressBar();
+            mView.showLoadView("");
         Observable.create(new ObservableOnSubscribe<NewsModel>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<NewsModel> e)
                     throws Exception {
-                String topImage = view.getTopImagePrefs();
-                String newsList = view.getNewsListPrefs();
+                String topImage = mView.getTopImagePrefs();
+                String newsList = mView.getNewsListPrefs();
                 if (isOnRefresh) {
                     getNewsFromServer();
                 }
@@ -100,41 +94,40 @@ public class NewsPresenter {
                     @Override
                     public void onNext(@NonNull NewsModel model) {
                         if (isOnLoadMore) {
-                            view.showMoreNews(model.getNewsList());
+                            mView.showMoreNews(model.getNewsList());
                             return;
                         }
-                        view.refreshNews(model.getTopNewses(), model.getNewsList());
+                        mView.refreshNews(model.getTopNewses(), model.getNewsList());
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
                         if (isOnRefresh) {
-                            view.onRefreshFailed();
+                            mView.onRefreshFailed();
                             isOnRefresh = false;
                             return;
                         }
                         if (isOnLoadMore) {
-                            view.onLoadFailed();
+                            mView.hideLoadView();
                             isOnLoadMore = false;
                             return;
                         }
-                        view.hideProgressDialog();
-                        view.onLoadFailed();
+                        mView.hideLoadView();
                     }
 
                     @Override
                     public void onComplete() {
                         if (isOnRefresh) {
                             isOnRefresh = false;
-                            view.endRefresh();
+                            mView.endRefresh();
                             return;
                         }
                         if (isOnLoadMore) {
                             isOnLoadMore = false;
-                            view.endLoadMore();
+                            mView.endLoadMore();
                             return;
                         }
-                        view.hideProgressDialog();
+                        mView.hideLoadView();
                     }
                 });
     }
@@ -143,7 +136,7 @@ public class NewsPresenter {
         topImageDoc = CrawlerUtils.requestDocument(CrawlerUtils.homeUrl);
         newsListDoc = CrawlerUtils.requestDocument(CrawlerUtils.newsUrl);
         // 缓存
-        view.saveTopImagePrefs(topImageDoc.toString());
-        view.saveNewsListPrefs(newsListDoc.toString());
+        mView.saveTopImagePrefs(topImageDoc.toString());
+        mView.saveNewsListPrefs(newsListDoc.toString());
     }
 }

@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.GridView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.yl.campus.R;
@@ -16,22 +15,18 @@ import com.yl.campus.app.adapter.DateAndWeekAdapter;
 import com.yl.campus.app.model.Curriculum;
 import com.yl.campus.app.presenter.CurriculumPresenter;
 import com.yl.campus.app.view.CurriculumView;
-import com.yl.campus.common.base.BaseActivity;
-import com.yl.campus.common.utils.ToastUtils;
+import com.yl.campus.common.base.BaseMvpActivity;
 
 import butterknife.BindView;
 
-public class CurriculumActivity extends BaseActivity implements CurriculumView {
+public class CurriculumActivity extends BaseMvpActivity<CurriculumView, CurriculumPresenter> implements CurriculumView {
 
     @BindView(R.id.dateAndWeekGrid)
     GridView dateAndWeekGrid;
     @BindView(R.id.courseLayout)
     FrameLayout courseLayout;
-    @BindView(R.id.progressBar)
-    ProgressBar progressBar;
     private int courseWidth;
     private int courseHeight;
-    private CurriculumPresenter presenter = new CurriculumPresenter(this);
 
     @Override
     protected int getLayoutId() {
@@ -44,19 +39,8 @@ public class CurriculumActivity extends BaseActivity implements CurriculumView {
     }
 
     @Override
-    public void showProgressBar() {
-        progressBar.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void hideProgressBar() {
-        progressBar.setVisibility(View.GONE);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        presenter = null;
+    protected CurriculumPresenter initPresenter() {
+        return new CurriculumPresenter();
     }
 
     @Override
@@ -85,7 +69,7 @@ public class CurriculumActivity extends BaseActivity implements CurriculumView {
             courseLayout.addView(holder.courseView);
         }
         // 获取课程表数据
-        presenter.getCurriculumData();
+        mPresenter.getCurriculumData();
     }
 
     @Override
@@ -103,14 +87,6 @@ public class CurriculumActivity extends BaseActivity implements CurriculumView {
                     (course.startLesson - 1) * courseHeight, 0, 0);
             holder.courseView.setLayoutParams(params);
             courseLayout.addView(holder.courseView);
-        }
-    }
-
-    @Override
-    public void onLoadFailed() {
-        if (presenter != null) {
-            ToastUtils.showToast(this, "加载失败", 0);
-            finish();
         }
     }
 

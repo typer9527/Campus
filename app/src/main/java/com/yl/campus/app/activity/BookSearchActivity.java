@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.TextView;
 
@@ -14,7 +13,7 @@ import com.yl.campus.app.adapter.BookListAdapter;
 import com.yl.campus.app.model.Book;
 import com.yl.campus.app.presenter.BookSearchPresenter;
 import com.yl.campus.app.view.BookSearchView;
-import com.yl.campus.common.base.BaseActivity;
+import com.yl.campus.common.base.BaseMvpActivity;
 import com.yl.campus.common.utils.PrefsUtils;
 import com.yl.campus.common.utils.SearchViewHelper;
 import com.yl.campus.common.utils.ToastUtils;
@@ -24,8 +23,8 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class BookSearchActivity extends BaseActivity implements
-        BookSearchView, View.OnClickListener, SearchView.OnQueryTextListener,
+public class BookSearchActivity extends BaseMvpActivity<BookSearchView, BookSearchPresenter>
+        implements BookSearchView, View.OnClickListener, SearchView.OnQueryTextListener,
         View.OnFocusChangeListener {
 
     @BindView(R.id.searchView)
@@ -36,11 +35,8 @@ public class BookSearchActivity extends BaseActivity implements
     TextView refreshBookText;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
-    @BindView(R.id.progressBar)
-    ProgressBar progressBar;
     List<Book> bookList;
     BookListAdapter adapter;
-    BookSearchPresenter presenter = new BookSearchPresenter(this);
 
     @Override
     protected int getLayoutId() {
@@ -66,14 +62,14 @@ public class BookSearchActivity extends BaseActivity implements
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
-        presenter.showBookList();
+        mPresenter.showBookList();
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.refreshBookText:
-                presenter.refreshRecommendBooks();
+                mPresenter.refreshRecommendBooks();
                 break;
             default:
                 break;
@@ -82,8 +78,8 @@ public class BookSearchActivity extends BaseActivity implements
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        presenter.setKeyword(query);
-        presenter.showBookList();
+        mPresenter.setKeyword(query);
+        mPresenter.showBookList();
         searchView.clearFocus();
         return true;
     }
@@ -104,7 +100,7 @@ public class BookSearchActivity extends BaseActivity implements
             recyclerView.setVisibility(View.VISIBLE);
             // 表示退出搜索，展示推荐书目
             if (searchView.getQuery().length() == 0) {
-                presenter.refreshRecommendBooks();
+                mPresenter.refreshRecommendBooks();
                 bookListText.setText(getString(R.string.recommend_book));
                 refreshBookText.setVisibility(View.VISIBLE);
             }
@@ -136,17 +132,13 @@ public class BookSearchActivity extends BaseActivity implements
     }
 
     @Override
+    protected BookSearchPresenter initPresenter() {
+        return new BookSearchPresenter();
+    }
+
+    @Override
     public void onNetworkError() {
+        super.onNetworkError();
         ToastUtils.showToast(this, "网络错误", 0);
-    }
-
-    @Override
-    public void showProgressBar() {
-        progressBar.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void hideProgressBar() {
-        progressBar.setVisibility(View.GONE);
     }
 }

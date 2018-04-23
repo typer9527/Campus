@@ -2,6 +2,7 @@ package com.yl.campus.app.view;
 
 import com.yl.campus.app.model.News;
 import com.yl.campus.app.model.TopNews;
+import com.yl.campus.common.base.BaseView;
 
 import java.util.List;
 
@@ -10,10 +11,7 @@ import java.util.List;
  * Created by Luke on 2017/9/28.
  */
 
-public interface NewsView {
-    void showProgressBar();
-
-    void hideProgressDialog();
+public interface NewsView extends BaseView {
 
     void refreshNews(List<TopNews> topNewses, List<News> newsList);
 
@@ -28,8 +26,6 @@ public interface NewsView {
     void onLoadMore();
 
     void endLoadMore();
-
-    void onLoadFailed();
 
     void jumpToNewsContent(String url);
 

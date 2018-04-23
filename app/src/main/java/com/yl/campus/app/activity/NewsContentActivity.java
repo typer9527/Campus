@@ -12,21 +12,17 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ProgressBar;
 
 import com.yl.campus.R;
-import com.yl.campus.app.view.NewContentView;
 import com.yl.campus.common.base.BaseActivity;
 import com.yl.campus.common.utils.ToastUtils;
 
 import butterknife.BindView;
 
-public class NewsContentActivity extends BaseActivity implements NewContentView {
+public class NewsContentActivity extends BaseActivity {
 
     @BindView(R.id.webView)
     WebView webView;
-    @BindView(R.id.progressBar)
-    ProgressBar progressBar;
     private int currentItem = 2;
 
     @Override
@@ -85,16 +81,6 @@ public class NewsContentActivity extends BaseActivity implements NewContentView 
         builder.show();
     }
 
-    @Override
-    public void showProgressBar() {
-        progressBar.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void hideProgressBar() {
-        progressBar.setVisibility(View.GONE);
-    }
-
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void initView() {
@@ -115,13 +101,14 @@ public class NewsContentActivity extends BaseActivity implements NewContentView 
             public void onReceivedError(WebView view, WebResourceRequest request,
                                         WebResourceError error) {
                 super.onReceivedError(view, request, error);
-                onLoadFailed();
+                showProgressDialog("");
+                ToastUtils.showToast(NewsContentActivity.this, "网络错误", 0);
             }
 
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 webView.setVisibility(View.INVISIBLE);
-                showProgressBar();
+                showProgressDialog("");
             }
 
             @Override
@@ -146,8 +133,8 @@ public class NewsContentActivity extends BaseActivity implements NewContentView 
                         "}";
                 webView.loadUrl(hideDiv);
                 webView.loadUrl("javascript:hideOther();");
-                hideProgressBar();
                 webView.setVisibility(View.VISIBLE);
+                dismissProgressDialog();
             }
         });
     }
@@ -156,11 +143,5 @@ public class NewsContentActivity extends BaseActivity implements NewContentView 
     protected void initData() {
         String url = getIntent().getStringExtra("news_url");
         webView.loadUrl(url);
-    }
-
-    @Override
-    public void onLoadFailed() {
-        ToastUtils.showToast(this, "网络错误", 0);
-        finish();
     }
 }

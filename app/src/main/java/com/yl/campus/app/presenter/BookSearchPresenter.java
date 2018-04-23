@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.yl.campus.app.model.Book;
 import com.yl.campus.app.model.BookSearchModel;
 import com.yl.campus.app.view.BookSearchView;
+import com.yl.campus.common.base.BasePresenter;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -29,24 +30,18 @@ import okhttp3.Response;
  * Created by Luke on 2017/10/11.
  */
 
-public class BookSearchPresenter {
+public class BookSearchPresenter extends BasePresenter<BookSearchView> {
 
     private final String url = "https://api.douban.com/v2/book/search";
-    private BookSearchView view;
-    private BookSearchModel model;
+    private BookSearchModel model = new BookSearchModel();
     private String keyword;
-
-    public BookSearchPresenter(BookSearchView view) {
-        this.view = view;
-        model = new BookSearchModel();
-    }
 
     public void setKeyword(String keyword) {
         this.keyword = keyword;
     }
 
     public void showBookList() {
-        view.showProgressBar();
+        mView.showLoadView("");
         Observable.create(new ObservableOnSubscribe<BookSearchModel>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<BookSearchModel> e) {
@@ -82,18 +77,17 @@ public class BookSearchPresenter {
                             if (count != 0) {
                                 bookList.addAll(bookSearchModel.getResult().books);
                             } else {
-                                view.onNoSearchResult();
+                                mView.onNoSearchResult();
                             }
                         }
-                        view.refreshBookList(bookList);
-                        view.hideProgressBar();
+                        mView.hideLoadView();
+                        mView.refreshBookList(bookList);
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
                         e.printStackTrace();
-                        view.hideProgressBar();
-                        view.onNetworkError();
+                        mView.onNetworkError();
                     }
 
                     @Override
@@ -104,10 +98,10 @@ public class BookSearchPresenter {
     }
 
     public void refreshRecommendBooks() {
-        String booksPrefs = view.getBooksPrefs("recommend_books");
+        String booksPrefs = mView.getBooksPrefs("recommend_books");
         BookSearchModel.SearchResult allBooks = new Gson().fromJson(booksPrefs,
                 BookSearchModel.SearchResult.class);
-        view.refreshBookList(getPartOfAllBooks(allBooks));
+        mView.refreshBookList(getPartOfAllBooks(allBooks));
     }
 
     private void getSearchBooks() throws IOException {
@@ -125,7 +119,7 @@ public class BookSearchPresenter {
     }
 
     private void getRecommendBooks() throws IOException {
-        String booksJson = view.getBooksPrefs("recommend_books");
+        String booksJson = mView.getBooksPrefs("recommend_books");
         if (booksJson == null) {
             OkHttpClient client = new OkHttpClient();
             RequestBody requestBody = new FormBody.Builder()
@@ -137,7 +131,7 @@ public class BookSearchPresenter {
             Response response = client.newCall(request).execute();
             booksJson = response.body().string();
             // 推荐阅读数目，存储Json至本地
-            view.saveBooksPrefs("recommend_books", booksJson);
+            mView.saveBooksPrefs("recommend_books", booksJson);
         }
         BookSearchModel.SearchResult allBooks = new Gson().fromJson(booksJson,
                 BookSearchModel.SearchResult.class);
