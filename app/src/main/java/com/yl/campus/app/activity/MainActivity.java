@@ -117,6 +117,12 @@ public class MainActivity extends BaseActivity implements
             case 2:
                 startActivity(new Intent(MainActivity.this, BookSearchActivity.class));
                 break;
+            case 3:
+                ToastUtils.showToast(this, "暂未开发", 0);
+                break;
+            case 4:
+                startActivity(new Intent(MainActivity.this, SettingActivity.class));
+                break;
             default:
                 break;
         }

@@ -19,9 +19,10 @@ import com.yl.campus.app.activity.MainActivity;
 
 public class GridViewAdapter extends BaseAdapter {
 
-    private final String[] functionNames = {"新闻展示", "我的课表", "图书搜索"};
+    private final String[] functionNames = {"新闻展示", "我的课表", "图书搜索",
+            "待定功能", "系统设置"};
     private final int[] functionImages = {R.drawable.ic_home, R.drawable.ic_home,
-            R.drawable.ic_home};
+            R.drawable.ic_home, R.drawable.ic_home, R.drawable.ic_home};
 
     @Override
     public int getCount() {

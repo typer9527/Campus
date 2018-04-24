@@ -24,5 +24,7 @@
         <activity android:name=".app.activity.PersonalInfoActivity" />
         <activity android:name=".app.activity.CurriculumActivity" />
         <activity android:name=".app.activity.BookSearchActivity" />
+        <activity android:name=".app.activity.SettingActivity"></activity>
     </application>
+
 </manifest>

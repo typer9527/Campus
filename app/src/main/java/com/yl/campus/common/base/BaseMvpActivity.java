@@ -5,7 +5,7 @@ package com.yl.campus.common.base;
  * Created by Luke on 2018/4/23.
  */
 
-public abstract class BaseMvpActivity<V, P extends BasePresenter<V>> extends BaseActivity implements BaseView {
+public abstract class BaseMvpActivity<V extends BaseView, P extends BasePresenter<V>> extends BaseActivity implements BaseView {
     protected P mPresenter;
 
     @Override

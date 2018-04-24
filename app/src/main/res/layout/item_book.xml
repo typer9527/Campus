@@ -3,13 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
-    android:orientation="horizontal">
+    android:padding="5dp"
+    android:orientation="horizontal"
+    android:background="#fff">
 
     <ImageView
         android:id="@+id/bookImage"
         android:layout_width="100dp"
-        android:layout_height="140dp"
+        android:layout_height="120dp"
         tools:ignore="ContentDescription" />
 
     <LinearLayout
@@ -25,7 +26,7 @@
             android:id="@+id/bookTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/bookAuthor"
@@ -33,14 +34,15 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:lines="1"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp" />
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp" />
 
         <TextView
+            android:textSize="12sp"
             android:id="@+id/bookSummary"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:ellipsize="end"
-            android:lines="3" />
+            android:lines="4" />
     </LinearLayout>
 </LinearLayout>

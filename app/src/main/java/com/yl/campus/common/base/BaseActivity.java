@@ -42,11 +42,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         initToolbarLayout();
         initView();
         initData();
-        initCreate(savedInstanceState);
+        //initCreate(savedInstanceState);
     }
 
-    protected void initCreate(Bundle savedInstanceState) {
-    }
+//    protected void initCreate(Bundle savedInstanceState) {
+//    }
 
     protected void initBasePresenter() {
 
@@ -152,5 +152,4 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected int getHomeAsUpIndicator() {
         return -1;
     }
-
 }

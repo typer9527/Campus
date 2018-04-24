@@ -23,4 +23,9 @@
     <string name="refresh_book">换一批</string>
     <string name="search_hint_text">请输入搜索关键字</string>
     <string name="on_loading_text">正在加载…</string>
+    <string name="exit_login_text">退出登录</string>
+    <string name="version_introduce_text">版本介绍</string>
+    <string name="about_us_text">关于我们</string>
+    <string name="clear_cache">清理缓存</string>
+    <string name="modify_psw_text">修改登录密码</string>
 </resources>

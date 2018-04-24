@@ -43,7 +43,7 @@ public class BookListAdapter extends BaseRVAdapter<Book> {
             authors += a + " ";
         }
         bookAuthor.setText(authors);
-        Glide.with(getContext()).load(book.image).into(bookImage);
+        Glide.with(getContext()).load(book.image).centerCrop().into(bookImage);
         bookSummary.setText(book.summary);
     }
 }
