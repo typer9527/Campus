@@ -20,7 +20,7 @@ import com.yl.campus.app.activity.MainActivity;
 public class GridViewAdapter extends BaseAdapter {
 
     private final String[] functionNames = {"新闻展示", "我的课表", "图书搜索",
-            "待定功能", "系统设置"};
+            "宿舍生活", "系统设置"};
     private final int[] functionImages = {R.drawable.ic_home, R.drawable.ic_home,
             R.drawable.ic_home, R.drawable.ic_home, R.drawable.ic_home};
 
@@ -47,7 +47,7 @@ public class GridViewAdapter extends BaseAdapter {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         MainActivity mainUi = (MainActivity) parent.getContext();
         mainUi.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int height = (displayMetrics.heightPixels - 350) / 3; // TODO: 2017/10/9 优化
+        int height = (displayMetrics.heightPixels - 400) / 3; // TODO: 2017/10/9 优化
         view.setLayoutParams(new GridView.LayoutParams(
                 GridView.LayoutParams.MATCH_PARENT, height));
         ImageView ivItem = (ImageView) view.findViewById(R.id.itemImage);

@@ -141,7 +141,7 @@ public class NewsActivity extends BaseMvpActivity<NewsView, NewsPresenter> imple
 
     @Override
     public String getTopImagePrefs() {
-        return PrefsUtils.getStringByKey(this, "homeUrl");
+        return PrefsUtils.getString(this, "homeUrl");
     }
 
     @Override
@@ -151,7 +151,7 @@ public class NewsActivity extends BaseMvpActivity<NewsView, NewsPresenter> imple
 
     @Override
     public String getNewsListPrefs() {
-        return PrefsUtils.getStringByKey(this, "newsList");
+        return PrefsUtils.getString(this, "newsList");
     }
 
     @Override

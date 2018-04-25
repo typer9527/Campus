@@ -123,7 +123,7 @@ public class BookSearchActivity extends BaseMvpActivity<BookSearchView, BookSear
 
     @Override
     public String getBooksPrefs(String key) {
-        return PrefsUtils.getStringByKey(this, key);
+        return PrefsUtils.getString(this, key);
     }
 
     @Override

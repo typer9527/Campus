@@ -10,14 +10,14 @@ import android.preference.PreferenceManager;
  */
 
 public class PrefsUtils {
-    public static String getStringByKey(Context context, String key) {
+    public static String getString(Context context, String key) {
         return PreferenceManager.getDefaultSharedPreferences(context)
                 .getString(key, null);
     }
 
-    public static void setNullByKey(Context context, String key) {
+    public static void setString(Context context, String key, String value) {
         SharedPreferences.Editor editor = getEditor(context);
-        editor.putString(key, null);
+        editor.putString(key, value);
         editor.apply();
     }
 

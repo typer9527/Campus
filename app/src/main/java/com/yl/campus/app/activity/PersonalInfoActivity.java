@@ -60,12 +60,12 @@ public class PersonalInfoActivity extends BaseActivity
 
     @Override
     public String getInfoPrefs() {
-        return PrefsUtils.getStringByKey(this, "info");
+        return PrefsUtils.getString(this, "info");
     }
 
     @Override
     public String getIdPrefs() {
-        return PrefsUtils.getStringByKey(this, "id");
+        return PrefsUtils.getString(this, "id");
     }
 
     @Override
