@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.yl.campus.R;
+import com.yl.campus.common.utils.ActivityCollector;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,6 +39,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         initBasePresenter();
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
+        ActivityCollector.addActivity(this);
         ButterKnife.bind(this);
         initToolbarLayout();
         initView();
@@ -45,7 +47,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         //initCreate(savedInstanceState);
     }
 
-//    protected void initCreate(Bundle savedInstanceState) {
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ActivityCollector.removeActivity(this);
+    }
+    //    protected void initCreate(Bundle savedInstanceState) {
 //    }
 
     protected void initBasePresenter() {

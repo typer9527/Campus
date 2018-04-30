@@ -18,6 +18,7 @@ import com.yl.campus.app.adapter.GridViewAdapter;
 import com.yl.campus.app.presenter.MainPresenter;
 import com.yl.campus.app.view.MainView;
 import com.yl.campus.common.base.BaseMvpActivity;
+import com.yl.campus.common.utils.ActivityCollector;
 import com.yl.campus.common.utils.DialogUtils;
 import com.yl.campus.common.utils.PrefsUtils;
 import com.yl.campus.common.utils.ToastUtils;
@@ -39,6 +40,7 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
     TextView idText;
     private CircleImageView headImage;
     private final int LOGIN = 1;
+    private boolean isLogon;
 
     @Override
     protected void initView() {
@@ -48,7 +50,7 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
 
     @Override
     protected void initData() {
-        boolean isLogon = LoginActivity.isLogon(this);
+        isLogon = PrefsUtils.getBoolean(this, "is_login");
         idText.setText(isLogon ? PrefsUtils.getString(this, "user_id") : "点击登陆");
         navView.setCheckedItem(R.id.item_home);
     }
@@ -89,7 +91,6 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
     }
 
     private void initNavigationView() {
-
         View navHeader = navView.getHeaderView(0);
         headImage = (CircleImageView) navHeader.findViewById(R.id.headImage);
         nameText = (TextView) navHeader.findViewById(R.id.nameText);
@@ -107,7 +108,7 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
                 startActivity(new Intent(MainActivity.this, NewsActivity.class));
                 break;
             case 1:
-                if (LoginActivity.isLogon(this)) {
+                if (isLogon) {
                     startActivity(new Intent(MainActivity.this,
                             CurriculumActivity.class));
                 } else {
@@ -168,9 +169,11 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
             @Override
             public void run() {
                 hideLoadView();
-                PrefsUtils.setString(MainActivity.this, "user_id", null);
-                ToastUtils.showToast(MainActivity.this, "已退出当前用户", 0);
-                initData();
+                PrefsUtils.setString(MainActivity.this, "login_psw", null);
+                PrefsUtils.setBoolean(MainActivity.this, "is_login", false);
+                ToastUtils.showToast(MainActivity.this, "已退出当前账号", 0);
+                ActivityCollector.finishAll();
+                startActivity(new Intent(MainActivity.this, MainActivity.class));
             }
         }, 1500);
     }
@@ -180,8 +183,7 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
         switch (requestCode) {
             case LOGIN:
                 if (resultCode == RESULT_OK) {
-                    String userId = PrefsUtils.getString(this, "user_id");
-                    idText.setText(userId);
+                    initData();
                 }
                 break;
             default:
@@ -195,7 +197,7 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
             case R.id.headImage:
             case R.id.idText:
             case R.id.nameText:
-                if (LoginActivity.isLogon(this)) {
+                if (isLogon) {
                     startActivity(new Intent(MainActivity.this, PersonalInfoActivity.class));
                 } else {
                     Intent intent = new Intent(MainActivity.this, LoginActivity.class);

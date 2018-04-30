@@ -10,6 +10,17 @@ import android.preference.PreferenceManager;
  */
 
 public class PrefsUtils {
+    public static boolean getBoolean(Context context, String key) {
+        return PreferenceManager.getDefaultSharedPreferences(context)
+                .getBoolean(key, false);
+    }
+
+    public static void setBoolean(Context context, String key, boolean value) {
+        SharedPreferences.Editor editor = getEditor(context);
+        editor.putBoolean(key, value);
+        editor.apply();
+    }
+
     public static String getString(Context context, String key) {
         return PreferenceManager.getDefaultSharedPreferences(context)
                 .getString(key, null);

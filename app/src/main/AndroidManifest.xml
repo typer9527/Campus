@@ -11,20 +11,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/NoActionBarTheme">
-        <activity android:name=".app.activity.MainActivity">
+        <activity android:name=".app.activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".app.activity.MainActivity"
+            android:launchMode="singleTask" />
         <activity android:name=".app.activity.NewsActivity" />
         <activity android:name=".app.activity.NewsContentActivity" />
         <activity android:name=".app.activity.LoginActivity" />
         <activity android:name=".app.activity.PersonalInfoActivity" />
         <activity android:name=".app.activity.CurriculumActivity" />
         <activity android:name=".app.activity.BookSearchActivity" />
-        <activity android:name=".app.activity.SettingActivity"></activity>
+        <activity android:name=".app.activity.SettingActivity" />
     </application>
-
 </manifest>

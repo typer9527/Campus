@@ -31,14 +31,6 @@ public class LoginActivity extends BaseActivity {
         return getString(R.string.login);
     }
 
-    @Override
-    protected void initData() {
-        // 初始化默认密码
-        if (PrefsUtils.getString(this, "default_psw") == null) {
-            PrefsUtils.setString(this, "default_psw", "123456");
-        }
-    }
-
     @OnClick(R.id.loginButton)
     public void onLoginClick(View view) {
         if (TextUtils.isEmpty(idText.getText())) {
@@ -57,10 +49,11 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void run() {
                 dismissProgressDialog();
-                String defaultPsw = PrefsUtils.getString(context, "default_psw");
+                String defaultPsw = PrefsUtils.getString(context, "login_psw");
                 if (defaultPsw.equals(passwordText.getText().toString())) {
                     ToastUtils.showToast(context, "登录成功", 0);
                     PrefsUtils.setString(context, "user_id", idText.getText().toString());
+                    PrefsUtils.setBoolean(context, "is_login", true);
                     setResult(RESULT_OK);
                     finish();
                 } else {
