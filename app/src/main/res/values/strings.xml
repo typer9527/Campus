@@ -29,4 +29,5 @@
     <string name="clear_cache">清理缓存</string>
     <string name="modify_psw_text">修改登录密码</string>
     <string name="version_mark">v%s</string>
+    <string name="share_text">分享</string>
 </resources>
