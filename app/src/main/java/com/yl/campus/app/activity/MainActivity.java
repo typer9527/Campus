@@ -36,9 +36,7 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
     NavigationView navView;
     @BindView(R.id.gridView)
     GridView gridView;
-    TextView nameText;
-    TextView idText;
-    private CircleImageView headImage;
+    TextView nameText, idText;
     private final int LOGIN = 1;
     private boolean isLogon;
 
@@ -51,7 +49,8 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
     @Override
     protected void initData() {
         isLogon = PrefsUtils.getBoolean(this, "is_login");
-        idText.setText(isLogon ? PrefsUtils.getString(this, "user_id") : "点击登陆");
+        nameText.setText(isLogon ? PrefsUtils.getString(this, "user_name") : "点击登录");
+        idText.setText(isLogon ? PrefsUtils.getString(this, "user_id") : "您还没有登陆");
         navView.setCheckedItem(R.id.item_home);
     }
 
@@ -92,7 +91,8 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
 
     private void initNavigationView() {
         View navHeader = navView.getHeaderView(0);
-        headImage = (CircleImageView) navHeader.findViewById(R.id.headImage);
+        CircleImageView headImage = (CircleImageView)
+                navHeader.findViewById(R.id.headImage);
         nameText = (TextView) navHeader.findViewById(R.id.nameText);
         idText = (TextView) navHeader.findViewById(R.id.idText);
         headImage.setOnClickListener(this);

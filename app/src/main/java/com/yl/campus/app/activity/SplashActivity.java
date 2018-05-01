@@ -25,6 +25,7 @@ public class SplashActivity extends BaseActivity {
         if (PrefsUtils.getString(this, "login_psw") == null) {
             PrefsUtils.setBoolean(this, "is_login", false);
             PrefsUtils.setString(this, "login_psw", "123456");
+            PrefsUtils.setString(this, "user_name", "未设置昵称");
         }
         new Handler().postDelayed(new Runnable() {
             @Override

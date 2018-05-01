@@ -8,29 +8,41 @@
         android:id="@+id/headImage"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginStart="20dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="30dp"
         android:src="@drawable/ic_head_img" />
 
-    <TextView
-        android:id="@+id/idText"
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="15dp"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="30dp"
         android:layout_marginLeft="20dp"
+        android:layout_marginRight="30dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:textColor="#fff" />
+        android:layout_toEndOf="@id/headImage"
+        android:layout_toRightOf="@id/headImage">
 
-    <TextView
-        android:id="@+id/nameText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/idText"
-        android:layout_marginLeft="20dp"
-        android:layout_marginStart="20dp"
-        android:textColor="#fff"
-        android:textSize="18sp" />
+        <TextView
+            android:id="@+id/nameText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:textColor="#fff"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/idText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/nameText"
+            android:ellipsize="end"
+            android:lines="1"
+            android:textColor="#fff"
+            android:textSize="14sp" />
+    </RelativeLayout>
 </RelativeLayout>
