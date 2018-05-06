@@ -37,7 +37,6 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
     @BindView(R.id.gridView)
     GridView gridView;
     TextView nameText, idText;
-    private final int LOGIN = 1;
     private boolean isLogon;
 
     @Override
@@ -48,9 +47,9 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
 
     @Override
     protected void initData() {
-        isLogon = PrefsUtils.getBoolean(this, "is_login");
-        nameText.setText(isLogon ? PrefsUtils.getString(this, "user_name") : "点击登录");
-        idText.setText(isLogon ? PrefsUtils.getString(this, "user_id") : "您还没有登陆");
+        isLogon = LoginActivity.isLogon(this);
+        nameText.setText(isLogon ? PrefsUtils.getString(this, "nickname") : "点击登录");
+        idText.setText(isLogon ? PrefsUtils.getString(this, "login_id") : "您还没有登陆");
         navView.setCheckedItem(R.id.item_home);
     }
 
@@ -131,7 +130,7 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() != R.id.item_home && !LoginActivity.isLogon(this)) {
+        if (item.getItemId() != R.id.item_home && !isLogon) {
             ToastUtils.showToast(this, "请先登录", 0);
             return true;
         }
@@ -169,26 +168,13 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
             @Override
             public void run() {
                 hideLoadView();
-                PrefsUtils.setString(MainActivity.this, "login_psw", null);
-                PrefsUtils.setBoolean(MainActivity.this, "is_login", false);
+                PrefsUtils.putString(MainActivity.this, "login_psw", null);
+                PrefsUtils.putBoolean(MainActivity.this, "is_logon", false);
                 ToastUtils.showToast(MainActivity.this, "已退出当前账号", 0);
                 ActivityCollector.finishAll();
                 startActivity(new Intent(MainActivity.this, MainActivity.class));
             }
         }, 1500);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-            case LOGIN:
-                if (resultCode == RESULT_OK) {
-                    initData();
-                }
-                break;
-            default:
-                break;
-        }
     }
 
     @Override
@@ -200,8 +186,7 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
                 if (isLogon) {
                     startActivity(new Intent(MainActivity.this, PersonalInfoActivity.class));
                 } else {
-                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                    startActivityForResult(intent, LOGIN);
+                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 }
                 break;
             default:

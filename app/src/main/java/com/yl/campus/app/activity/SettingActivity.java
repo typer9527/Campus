@@ -41,7 +41,7 @@ public class SettingActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        if (!PrefsUtils.getBoolean(this, "is_login")) {
+        if (!LoginActivity.isLogon(this)) {
             rlModifyPsw.setVisibility(View.GONE);
             rlExit.setVisibility(View.GONE);
         }
@@ -86,8 +86,9 @@ public class SettingActivity extends BaseActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                PrefsUtils.setString(SettingActivity.this, "login_psw", null);
-                PrefsUtils.setBoolean(SettingActivity.this, "is_login", false);
+                dismissProgressDialog();
+                PrefsUtils.putString(SettingActivity.this, "login_psw", null);
+                PrefsUtils.putBoolean(SettingActivity.this, "is_logon", false);
                 ToastUtils.showToast(SettingActivity.this, "已退出当前账号", 0);
                 ActivityCollector.finishAll();
                 startActivity(new Intent(SettingActivity.this, MainActivity.class));

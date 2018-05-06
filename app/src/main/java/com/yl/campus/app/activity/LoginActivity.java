@@ -1,6 +1,7 @@
 package com.yl.campus.app.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.EditText;
 
 import com.yl.campus.R;
 import com.yl.campus.common.base.BaseActivity;
+import com.yl.campus.common.utils.ActivityCollector;
 import com.yl.campus.common.utils.PrefsUtils;
 import com.yl.campus.common.utils.ToastUtils;
 
@@ -52,10 +54,10 @@ public class LoginActivity extends BaseActivity {
                 String defaultPsw = PrefsUtils.getString(context, "login_psw");
                 if (defaultPsw.equals(passwordText.getText().toString())) {
                     ToastUtils.showToast(context, "登录成功", 0);
-                    PrefsUtils.setString(context, "user_id", idText.getText().toString());
-                    PrefsUtils.setBoolean(context, "is_login", true);
-                    setResult(RESULT_OK);
-                    finish();
+                    PrefsUtils.putString(context, "login_id", idText.getText().toString());
+                    PrefsUtils.putBoolean(context, "is_logon", true);
+                    ActivityCollector.finishAll();
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 } else {
                     ToastUtils.showToast(context, "密码错误", 0);
                 }
@@ -64,6 +66,6 @@ public class LoginActivity extends BaseActivity {
     }
 
     public static boolean isLogon(Context context) {
-        return !(PrefsUtils.getString(context, "user_id") == null);
+        return PrefsUtils.getBoolean(context, "is_logon");
     }
 }

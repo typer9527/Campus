@@ -21,11 +21,11 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        // 初始化数据，包括登录状态，密码
-        if (PrefsUtils.getString(this, "login_psw") == null) {
-            PrefsUtils.setBoolean(this, "is_login", false);
-            PrefsUtils.setString(this, "login_psw", "123456");
-            PrefsUtils.setString(this, "user_name", "未设置昵称");
+        if (!PrefsUtils.getBoolean(this, "is_logon")) {
+            // 未登录状态下初始化登陆密码，默认昵称
+            PrefsUtils.putBoolean(this, "is_logon", false);
+            PrefsUtils.putString(this, "login_psw", "123456");
+            PrefsUtils.putString(this, "nickname", "未设置昵称");
         }
         new Handler().postDelayed(new Runnable() {
             @Override
