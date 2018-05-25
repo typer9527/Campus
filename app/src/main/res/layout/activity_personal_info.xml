@@ -58,6 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="end"
+            android:text="2206140135"
             android:textColor="#000" />
     </LinearLayout>
 
@@ -86,6 +87,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="end"
+            android:text="资环学院地信专业"
             android:textColor="#000" />
     </LinearLayout>
 
@@ -113,7 +115,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="end" />
+            android:gravity="end"
+            android:text="hahaha" />
     </LinearLayout>
 
     <View
@@ -140,7 +143,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="end" />
+            android:gravity="end"
+            android:text="张三"
+            android:textColor="#000" />
     </LinearLayout>
 
     <View
@@ -168,7 +173,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="end" />
+            android:gravity="end"
+            android:text="男"
+            android:textColor="#000" />
     </LinearLayout>
 
     <View
@@ -195,7 +202,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="12"
-            android:gravity="end" />
+            android:gravity="end"
+            android:text="1996-05-26"
+            android:textColor="#000" />
     </LinearLayout>
 
     <View
@@ -223,6 +232,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="end"
+            android:text="13958496492"
             android:textColor="#000" />
     </LinearLayout>
 
@@ -251,6 +261,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="end"
+            android:text="m562419635@qq.com"
             android:textColor="#000" />
     </LinearLayout>
 
@@ -268,7 +279,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="30dp"
-            android:background="@drawable/shape_btn_bg"
+            android:background="@drawable/bg_btn"
             android:text="@string/save_text"
             android:textColor="#fff"
             android:textSize="16sp" />

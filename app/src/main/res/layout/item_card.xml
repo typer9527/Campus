@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="15dp"
+    android:layout_marginRight="15dp"
+    android:layout_marginTop="10dp"
+    android:background="@drawable/bg_card_yellow">
+
+    <TextView
+        android:id="@+id/tv_type"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:textColor="#fff"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tv_no"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/tv_type"
+        android:layout_toRightOf="@id/tv_type"
+        android:padding="15dp"
+        android:text="@string/card_no"
+        android:textColor="#fff"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tv_state"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_type"
+        android:padding="15dp"
+        android:text="@string/card_state"
+        android:textColor="#fff"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tv_balance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_type"
+        android:layout_toEndOf="@id/tv_state"
+        android:layout_toRightOf="@id/tv_state"
+        android:padding="15dp"
+        android:text="@string/current_balance"
+        android:textColor="#fff"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/btn_charge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/bg_item_grid"
+        android:text="@string/charge_text" />
+</RelativeLayout>

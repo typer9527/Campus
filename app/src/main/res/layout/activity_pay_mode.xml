@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar_layout" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/bg_recharge_et"
+        android:gravity="center_vertical"
+        android:padding="10dp">
+
+        <EditText
+            android:id="@+id/et_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:hint="请输入充值的金额"
+            android:textColor="#000"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/colorGray" />
+
+    <RelativeLayout
+        android:id="@+id/pm_rl_ali"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/iv_pay1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_ali_pay" />
+
+        <TextView
+            android:id="@+id/text_ali"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@id/iv_pay1"
+            android:layout_toRightOf="@id/iv_pay1"
+            android:text="支付宝支付"
+            android:textColor="@color/ColorBlack" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_ali"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@id/iv_pay1"
+            android:layout_toRightOf="@id/iv_pay1"
+            android:text="支付宝快速支付"
+            android:textColor="@color/colorGray" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/ic_chevron_right" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/colorGray" />
+
+    <RelativeLayout
+        android:id="@+id/rl_wx"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/iv_pay2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_wx_pay" />
+
+        <TextView
+            android:id="@+id/text_weichat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@id/iv_pay2"
+            android:layout_toRightOf="@id/iv_pay2"
+            android:text="微信支付"
+            android:textColor="@color/ColorBlack" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_weichat"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@id/iv_pay2"
+            android:layout_toRightOf="@id/iv_pay2"
+            android:text="微信第三方快速支付"
+            android:textColor="@color/colorGray" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/ic_chevron_right" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/loginButton"
+        style="@style/Base.Widget.AppCompat.Button.Borderless"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/bg_btn"
+        android:text="确定"
+        android:textColor="#fff"
+        android:textSize="16sp" />
+</LinearLayout>

@@ -108,8 +108,7 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
                 break;
             case 1:
                 if (isLogon) {
-                    startActivity(new Intent(MainActivity.this,
-                            CurriculumActivity.class));
+                    startActivity(new Intent(MainActivity.this, CurriculumActivity.class));
                 } else {
                     ToastUtils.showToast(this, "请先登录", 0);
                 }
@@ -118,7 +117,11 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
                 startActivity(new Intent(MainActivity.this, BookSearchActivity.class));
                 break;
             case 3:
-                ToastUtils.showToast(this, "暂未开发", 0);
+                if (isLogon) {
+                    startActivity(new Intent(MainActivity.this, BalanceActivity.class));
+                } else {
+                    ToastUtils.showToast(this, "请先登录", 0);
+                }
                 break;
             case 4:
                 startActivity(new Intent(MainActivity.this, SettingActivity.class));

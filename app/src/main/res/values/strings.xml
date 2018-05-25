@@ -38,4 +38,9 @@
     <string name="save_text">保存</string>
     <string name="input_student_id">请输入学号</string>
     <string name="input_psw_text">请输入密码</string>
+    <string name="money_mark">¥%s</string>
+    <string name="card_no">卡号：%s</string>
+    <string name="card_state">状态：%s</string>
+    <string name="current_balance">当前余额：%s元</string>
+    <string name="charge_text">充值</string>
 </resources>
