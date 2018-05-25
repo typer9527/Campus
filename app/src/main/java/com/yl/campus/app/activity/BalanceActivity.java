@@ -69,7 +69,6 @@ public class BalanceActivity extends BaseActivity {
     }
 
     class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
-
         private List<CardBean> beans;
 
         CardAdapter(List<CardBean> beans) {
